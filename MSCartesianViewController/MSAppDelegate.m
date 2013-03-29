@@ -7,16 +7,38 @@
 //
 
 #import "MSAppDelegate.h"
+#import "MSCartesianMasterViewController.h"
+#import "MSCartesianChildViewController.h"
 
 @implementation MSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    return YES;
+  UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
+
+  MSCartesianMasterViewController *cartesianMasterViewController = [currentStoryboard instantiateInitialViewController];
+
+  MSCartesianChildViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
+  position00ViewController.row = 0;
+  position00ViewController.col = 0;
+
+  MSCartesianChildViewController *position01ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position01"];
+  position01ViewController.row = 0;
+  position01ViewController.col = 1;
+
+  MSCartesianChildViewController *position11ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position11"];
+  position11ViewController.row = 1;
+  position11ViewController.col = 1;
+
+  MSCartesianChildViewController *position12ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position12"];
+  position12ViewController.row = 1;
+  position12ViewController.col = 2;
+
+  NSArray *children = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController];
+  [cartesianMasterViewController setChildren:children];
+
+  [self.window makeKeyAndVisible];
+  return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
