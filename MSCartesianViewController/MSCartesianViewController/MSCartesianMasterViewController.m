@@ -8,16 +8,32 @@
 #import "MSCartesianMasterViewController.h"
 #import "MSCartesianChildViewController.h"
 
+typedef enum {
+  MSPanDirectionRight,
+  MSPanDirectionLeft,
+  MSPanDirectionUp,
+  MSPanDirectionDown
+} MSPanDirection;
+
 @interface MSCartesianMasterViewController ()
+@property(strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
 @end
 
 @implementation MSCartesianMasterViewController
+
+- (void)viewDidLoad
+{
+  _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
+  [self.view addGestureRecognizer:_panGestureRecognizer];
+}
 
 - (void)setChildren:(NSArray *)children
 {
   _childrenViewControllers = children;
   [self setAdjacentViewControllers];
+
   _visibleViewController = [_childrenViewControllers objectAtIndex:0];
+  [self changeCurrentViewControllerWithController:_visibleViewController];
 }
 
 - (void)setAdjacentViewControllers
@@ -47,6 +63,101 @@
     return nil;
   }
   return [viewControllersWithMatchedPosition objectAtIndex:0];
+}
+
+- (void)panDetected:(UIPanGestureRecognizer *)panGestureRecognizer
+{
+  if (panGestureRecognizer.state != UIGestureRecognizerStateEnded) {
+    return;
+  }
+
+  CGFloat const gestureMinimumTranslation = 20.0;
+  CGPoint translation = [panGestureRecognizer translationInView:self.view];
+  MSPanDirection panDirection;
+
+  // determine if horizontal swipe only if you meet some minimum velocity
+  if (fabs(translation.x) > gestureMinimumTranslation) {
+    BOOL gestureHorizontal = NO;
+
+    if (translation.y == 0.0) {
+      gestureHorizontal = YES;
+    } else {
+      gestureHorizontal = (fabs(translation.x / translation.y) > 5.0);
+    }
+
+    if (gestureHorizontal) {
+      if (translation.x > 0.0) {
+        NSLog(@"moved right");
+        panDirection = MSPanDirectionRight;
+      } else {
+        NSLog(@"moved left");
+        panDirection = MSPanDirectionLeft;
+      }
+    }
+  }
+  // determine if vertical swipe only if you meet some minimum velocity
+  else if (fabs(translation.y) > gestureMinimumTranslation) {
+    BOOL gestureVertical = NO;
+
+    if (translation.x == 0.0) {
+      gestureVertical = YES;
+    } else {
+      gestureVertical = (fabs(translation.y / translation.x) > 5.0);
+    }
+
+    if (gestureVertical) {
+      if (translation.y > 0.0) {
+        NSLog(@"moved down");
+        panDirection = MSPanDirectionDown;
+      } else {
+        NSLog(@"moved up");
+        panDirection = MSPanDirectionUp;
+      }
+    }
+  }
+
+  [self changeCurrentViewControllerAfterPanDirection:panDirection];
+}
+
+- (void)changeCurrentViewControllerAfterPanDirection:(MSPanDirection)panDirection
+{
+  NSInteger direction = panDirection;
+  switch (direction) {
+    case MSPanDirectionRight:
+      [self changeCurrentViewControllerWithController:_visibleViewController.leftViewController];
+      break;
+    case MSPanDirectionLeft:
+      [self changeCurrentViewControllerWithController:_visibleViewController.rightViewController];
+      break;
+    case MSPanDirectionUp:
+      [self changeCurrentViewControllerWithController:_visibleViewController.bottomViewController];
+      break;
+    case MSPanDirectionDown:
+      [self changeCurrentViewControllerWithController:_visibleViewController.topViewController];
+      break;
+    default:
+      break;
+  }
+}
+
+- (void)changeCurrentViewControllerWithController:(MSCartesianChildViewController *)newController
+{
+  if (newController == nil) {
+    return;
+  }
+
+  // remove old
+  [_visibleViewController willMoveToParentViewController:self];
+  [_visibleViewController.view removeFromSuperview];
+  [_visibleViewController removeFromParentViewController];
+
+  // add new
+  [self addChildViewController:newController];
+  newController.view.frame = self.view.bounds;
+  [self.view addSubview:newController.view];
+  [newController didMoveToParentViewController:self];
+
+  _visibleViewController = newController;
 }
 
 @end

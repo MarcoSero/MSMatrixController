@@ -16,7 +16,7 @@
 {
   UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
 
-  MSCartesianMasterViewController *cartesianMasterViewController = [currentStoryboard instantiateInitialViewController];
+  MSCartesianMasterViewController *cartesianMasterViewController = (MSCartesianMasterViewController *)self.window.rootViewController;
 
   MSCartesianChildViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
   position00ViewController.row = 0;
