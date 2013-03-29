@@ -6,6 +6,7 @@
 
 
 #import "MSCartesianChildViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation MSCartesianChildViewController

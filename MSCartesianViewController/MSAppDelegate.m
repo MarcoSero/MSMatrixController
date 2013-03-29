@@ -16,7 +16,8 @@
 {
   UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
 
-  MSCartesianMasterViewController *cartesianMasterViewController = (MSCartesianMasterViewController *)self.window.rootViewController;
+  UIViewController *initialViewController = self.window.rootViewController;
+  MSCartesianMasterViewController *cartesianMasterViewController = [[MSCartesianMasterViewController alloc] initWithFrame:initialViewController.view.frame];
 
   MSCartesianChildViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
   position00ViewController.row = 0;
@@ -37,6 +38,7 @@
   NSArray *children = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController];
   [cartesianMasterViewController setChildren:children];
 
+  self.window.rootViewController = cartesianMasterViewController;
   [self.window makeKeyAndVisible];
   return YES;
 }

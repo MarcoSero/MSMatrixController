@@ -15,7 +15,7 @@
 @property (weak, readonly, nonatomic) MSCartesianChildViewController *visibleViewController;
 @property (strong, readonly, nonatomic) NSArray *childrenViewControllers;
 
-
+- (id)initWithFrame:(CGRect)frame;
 - (void)setChildren:(NSArray *)children;
 
 @end

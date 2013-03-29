@@ -5,10 +5,13 @@
 //
 
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "MSCartesianMasterViewController.h"
 #import "MSCartesianChildViewController.h"
+#import "MSCartesianView.h"
 
 typedef enum {
+  MSPanDirectionNone,
   MSPanDirectionRight,
   MSPanDirectionLeft,
   MSPanDirectionUp,
@@ -17,28 +20,34 @@ typedef enum {
 
 @interface MSCartesianMasterViewController ()
 @property(strong, nonatomic) UIPanGestureRecognizer *panGestureRecognizer;
+@property(assign, nonatomic) CGPoint positionBeforePan;
 @end
 
 @implementation MSCartesianMasterViewController
 
-- (void)viewDidLoad
+- (id)initWithFrame:(CGRect)frame
 {
-  _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
-  [self.view addGestureRecognizer:_panGestureRecognizer];
+  self = [super init];
+  if (self) {
+    self.view = [[MSCartesianView alloc] initWithFrame:frame];
+    return self;
+  }
+  return nil;
 }
 
 - (void)setChildren:(NSArray *)children
 {
   _childrenViewControllers = children;
-  [self setAdjacentViewControllers];
 
-  _visibleViewController = [_childrenViewControllers objectAtIndex:0];
-  [self changeCurrentViewControllerWithController:_visibleViewController];
-}
-
-- (void)setAdjacentViewControllers
-{
+  NSInteger maxRows = 0;
+  NSInteger maxCols = 0;
+  CGFloat screenWidth = self.view.frame.size.width;
+  CGFloat screenHeight = self.view.frame.size.height;
   for (MSCartesianChildViewController *child in _childrenViewControllers) {
+
+    maxRows = MAX(maxRows, child.row);
+    maxCols = MAX(maxCols, child.col);
+
     Position left = child.position;
     left.col = left.col - 1;
     Position right = child.position;
@@ -52,7 +61,24 @@ typedef enum {
     child.rightViewController = [self getControllerAtPosition:right];
     child.topViewController = [self getControllerAtPosition:top];
     child.bottomViewController = [self getControllerAtPosition:bottom];
+
+    CGRect frameInsideMasterView = child.view.bounds;
+    frameInsideMasterView.origin.x = screenWidth * child.row;
+    frameInsideMasterView.origin.y = screenHeight * child.col;
+    child.view.frame = frameInsideMasterView;
+
+    [self addChildViewController:child];
+    [self.view addSubview:child.view];
+    [child didMoveToParentViewController:self];
   }
+
+  CGRect frameMasterView = self.view.frame;
+  frameMasterView.size.width = screenWidth * maxRows;
+  frameMasterView.size.height = screenHeight * maxCols;
+  self.view.frame = frameMasterView;
+
+  _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
+  [self.view addGestureRecognizer:_panGestureRecognizer];
 }
 
 - (MSCartesianChildViewController *)getControllerAtPosition:(Position)position
@@ -65,15 +91,16 @@ typedef enum {
   return [viewControllersWithMatchedPosition objectAtIndex:0];
 }
 
-- (void)panDetected:(UIPanGestureRecognizer *)panGestureRecognizer
+- (void)panDetected:(UIPanGestureRecognizer *)pan
 {
-  if (panGestureRecognizer.state != UIGestureRecognizerStateEnded) {
-    return;
+  if (pan.state == UIGestureRecognizerStateBegan) {
+    _positionBeforePan = self.view.frame.origin;
   }
-
+  
   CGFloat const gestureMinimumTranslation = 20.0;
-  CGPoint translation = [panGestureRecognizer translationInView:self.view];
-  MSPanDirection panDirection;
+  CGPoint translation = [pan translationInView:self.view];
+  CGPoint velocity = [pan velocityInView:self.view];
+  MSPanDirection panDirection = MSPanDirectionNone;
 
   // determine if horizontal swipe only if you meet some minimum velocity
   if (fabs(translation.x) > gestureMinimumTranslation) {
@@ -116,48 +143,74 @@ typedef enum {
     }
   }
 
-  [self changeCurrentViewControllerAfterPanDirection:panDirection];
+  NSLog(@"translation %f %f", translation.x, translation.y);
+  NSLog(@"velocity %f %f", velocity.x, velocity.y);
+
+  [self handlePanWithDirection:panDirection translation:translation velocity:velocity];
+
+}
+
+- (void)handlePanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
+{
+  CGRect frame = self.view.frame;
+  CGPoint newOrigin;
+  newOrigin.x = _positionBeforePan.x + translation.x;
+  newOrigin.y = _positionBeforePan.y + translation.y;
+  frame.origin = newOrigin;
+  self.view.frame = frame;
 }
 
 - (void)changeCurrentViewControllerAfterPanDirection:(MSPanDirection)panDirection
 {
   NSInteger direction = panDirection;
+  CGFloat maxX = self.view.frame.size.width;
+  CGFloat maxY = self.view.frame.size.height;
   switch (direction) {
     case MSPanDirectionRight:
-      [self changeCurrentViewControllerWithController:_visibleViewController.leftViewController];
+      [self changeCurrentViewControllerWithController:_visibleViewController.leftViewController finishAnimationAtPoint:CGPointMake(maxX, 0)];
       break;
     case MSPanDirectionLeft:
-      [self changeCurrentViewControllerWithController:_visibleViewController.rightViewController];
+      [self changeCurrentViewControllerWithController:_visibleViewController.rightViewController finishAnimationAtPoint:CGPointMake(-maxX, 0)];
       break;
     case MSPanDirectionUp:
-      [self changeCurrentViewControllerWithController:_visibleViewController.bottomViewController];
+      [self changeCurrentViewControllerWithController:_visibleViewController.bottomViewController finishAnimationAtPoint:CGPointMake(0, -maxY)];
       break;
     case MSPanDirectionDown:
-      [self changeCurrentViewControllerWithController:_visibleViewController.topViewController];
+      [self changeCurrentViewControllerWithController:_visibleViewController.topViewController finishAnimationAtPoint:CGPointMake(0, maxY)];
       break;
     default:
       break;
   }
 }
 
-- (void)changeCurrentViewControllerWithController:(MSCartesianChildViewController *)newController
+- (void)changeCurrentViewControllerWithController:(MSCartesianChildViewController *)newController finishAnimationAtPoint:(CGPoint)pointForAnimation
 {
   if (newController == nil) {
     return;
   }
 
-  // remove old
-  [_visibleViewController willMoveToParentViewController:self];
-  [_visibleViewController.view removeFromSuperview];
-  [_visibleViewController removeFromParentViewController];
-
   // add new
   [self addChildViewController:newController];
   newController.view.frame = self.view.bounds;
-  [self.view addSubview:newController.view];
+  [self.view insertSubview:newController.view belowSubview:_visibleViewController.view];
   [newController didMoveToParentViewController:self];
 
-  _visibleViewController = newController;
+  [UIView animateWithDuration:1.0 animations:^{
+
+    CGRect newRect = _visibleViewController.view.frame;
+    newRect.origin = pointForAnimation;
+    _visibleViewController.view.frame = newRect;
+
+  } completion:^(BOOL finished) {
+    if (finished) {
+      // remove old
+      [_visibleViewController willMoveToParentViewController:self];
+      [_visibleViewController.view removeFromSuperview];
+      [_visibleViewController removeFromParentViewController];
+      _visibleViewController = newController;
+    }
+  }];
+
 }
 
 @end
