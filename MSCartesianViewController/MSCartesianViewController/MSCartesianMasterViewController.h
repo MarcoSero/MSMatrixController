@@ -9,6 +9,19 @@
 
 @class MSCartesianChildViewController;
 
+typedef enum {
+  MSPanDirectionNone,
+  MSPanDirectionRight,
+  MSPanDirectionLeft,
+  MSPanDirectionUp,
+  MSPanDirectionDown
+} MSPanDirection;
+
+typedef enum {
+  MSPanWayNone,
+  MSPanWayHorizontal,
+  MSPanWayVertical
+} MSPanWay;
 
 @interface MSCartesianMasterViewController : UIViewController
 
