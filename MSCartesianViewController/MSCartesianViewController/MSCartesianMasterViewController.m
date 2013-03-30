@@ -19,9 +19,7 @@
 @property(assign, nonatomic) NSInteger numberPanDetectedCalled;
 @end
 
-@implementation MSCartesianMasterViewController {
-  int _numberPanDetectedCalled;
-}
+@implementation MSCartesianMasterViewController
 
 - (id)initWithFrame:(CGRect)frame
 {
