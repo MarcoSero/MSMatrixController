@@ -290,15 +290,15 @@
 		A97A5FE6170600640009A57F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: The App Business LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: The App Business LTD";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MSMatrixControllerDemo/MSMatrixControllerDemo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MSMatrixControllerDemo/MSMatrixControllerDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = MSMatrixControllerDemo;
-				PROVISIONING_PROFILE = "BF25A51B-DD73-4393-B489-135834E1F621";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF25A51B-DD73-4393-B489-135834E1F621";
+				PROVISIONING_PROFILE = "4FEF4224-0734-4BD2-BDE9-A6BA550E04F0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4FEF4224-0734-4BD2-BDE9-A6BA550E04F0";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
