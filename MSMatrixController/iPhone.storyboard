@@ -40,6 +40,11 @@
                             <constraint firstItem="qQK-c5-GJ9" firstAttribute="centerX" secondItem="6kg-ZY-yeh" secondAttribute="centerX" type="default" id="4n6-Vk-LFO"/>
                             <constraint firstItem="qQK-c5-GJ9" firstAttribute="top" secondItem="6kg-ZY-yeh" secondAttribute="top" type="default" id="6WV-dy-iS5"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="view" destination="6kg-ZY-yeh" id="MP6-Q7-EcZ"/>
@@ -68,6 +73,11 @@
                             <constraint firstItem="QmM-wQ-cqR" firstAttribute="top" secondItem="Har-MZ-zEc" secondAttribute="top" type="default" id="ODx-In-E2S"/>
                             <constraint firstItem="QmM-wQ-cqR" firstAttribute="centerX" secondItem="Har-MZ-zEc" secondAttribute="centerX" type="default" id="Z6d-iO-loj"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="view" destination="Har-MZ-zEc" id="hg5-gU-TIe"/>
@@ -96,6 +106,11 @@
                             <constraint firstItem="yTd-j6-azc" firstAttribute="centerX" secondItem="Fhj-2C-qoo" secondAttribute="centerX" type="default" id="aDK-sn-rYA"/>
                             <constraint firstItem="yTd-j6-azc" firstAttribute="top" secondItem="Fhj-2C-qoo" secondAttribute="top" type="default" id="vQb-Ir-5EG"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="view" destination="Fhj-2C-qoo" id="Ywi-IL-Eoo"/>
@@ -124,6 +139,11 @@
                             <constraint firstItem="i8y-Cj-1oS" firstAttribute="centerX" secondItem="bFI-Ke-92y" secondAttribute="centerX" type="default" id="8jc-Ft-xau"/>
                             <constraint firstItem="i8y-Cj-1oS" firstAttribute="top" secondItem="bFI-Ke-92y" secondAttribute="top" type="default" id="kUY-0I-ag4"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="view" destination="bFI-Ke-92y" id="BcJ-AT-U9p"/>
