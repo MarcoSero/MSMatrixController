@@ -95,7 +95,6 @@
 
 - (void)panDetected:(MSPanGestureRecognizer *)pan
 {
-  NSLog(@"direction %d", pan.direction);
   if (pan.state == UIGestureRecognizerStateBegan) {
     _positionBeforePan = self.view.frame.origin;
   }
@@ -145,8 +144,10 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
 
 - (void)handleEndedPanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
 {
+
   const CGFloat horizontalThreshold = _visibleViewController.view.frame.size.width / 4;
   const CGFloat verticalThreshold = _visibleViewController.view.frame.size.height / 4;
+  const CGFloat velocityThreshold = 1000;
 
   BOOL nextControllerExists = NO;
   nextControllerExists |= direction == MSPanDirectionRight && _visibleViewController.rightViewController;
@@ -154,12 +155,18 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
   nextControllerExists |= direction == MSPanDirectionUp && _visibleViewController.topViewController;
   nextControllerExists |= direction == MSPanDirectionDown && _visibleViewController.bottomViewController;
 
+  BOOL overHorizontalThreshold = fabs(translation.x) > horizontalThreshold;
+  BOOL overVerticalThreshold = fabs(translation.y) > verticalThreshold;
+  BOOL overVelocityThreshold = fabs(velocity.x) > velocityThreshold || fabs(velocity.y) > velocityThreshold;
+
   if (!nextControllerExists) {
     [self goToViewController:_visibleViewController];
     return;
   }
 
-  if (fabs(translation.x) > horizontalThreshold) {
+  NSLog(@"velocity x %f y %f", velocity.x, velocity.y);
+
+  if (overHorizontalThreshold || overVelocityThreshold) {
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
       [self goToViewController:_visibleViewController.leftViewController];
@@ -169,7 +176,7 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
       [self goToViewController:_visibleViewController.rightViewController];
     }
   }
-  else if (fabs(translation.y) > verticalThreshold) {
+  else if (overVerticalThreshold || overVelocityThreshold) {
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
       [self goToViewController:_visibleViewController.topViewController];
@@ -178,6 +185,9 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
       NSLog(@"goto bottom controller");
       [self goToViewController:_visibleViewController.bottomViewController];
     }
+  }
+  else {
+    [self goToViewController:_visibleViewController];
   }
 }
 
