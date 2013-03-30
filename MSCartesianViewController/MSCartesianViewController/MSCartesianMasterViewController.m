@@ -7,9 +7,9 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 #import "MSCartesianMasterViewController.h"
-#import "MSCartesianChildViewController.h"
 #import "MSCartesianView.h"
 #import "MSPanGestureRecognizer.h"
+#import "UIViewController+MSCartesianViewController.h"
 
 
 @interface MSCartesianMasterViewController ()
@@ -41,7 +41,7 @@
   NSInteger maxCols = 0;
   CGFloat screenWidth = self.view.frame.size.width;
   CGFloat screenHeight = self.view.frame.size.height;
-  for (MSCartesianChildViewController *child in _childrenViewControllers) {
+  for (UIViewController *child in _childrenViewControllers) {
 
     maxRows = MAX(maxRows, child.row);
     maxCols = MAX(maxCols, child.col);
@@ -71,7 +71,7 @@
   frame.size = contentSize;
   self.view.frame = frame;
 
-  for (MSCartesianChildViewController *child in _childrenViewControllers) {
+  for (UIViewController *child in _childrenViewControllers) {
     [self addChildViewController:child];
     [self.view addSubview:child.view];
     [child didMoveToParentViewController:self];
@@ -83,7 +83,7 @@
   _visibleViewController = [_childrenViewControllers objectAtIndex:0];
 }
 
-- (MSCartesianChildViewController *)getControllerAtPosition:(Position)position
+- (UIViewController *)getControllerAtPosition:(Position)position
 {
   NSPredicate *positionPredicate = [NSPredicate predicateWithFormat:@"row == %d AND col == %d", position.row, position.col];
   NSArray *viewControllersWithMatchedPosition = [_childrenViewControllers filteredArrayUsingPredicate:positionPredicate];
@@ -195,7 +195,7 @@ if ((direction == MSPanDirectionRight && _visibleViewController.rightViewControl
   }
 }
 
-- (void)goToViewController:(MSCartesianChildViewController *)newController
+- (void)goToViewController:(UIViewController *)newController
 {
   [UIView animateWithDuration:0.5 animations:^{
     NSLog(@"old frame %@", self.view);

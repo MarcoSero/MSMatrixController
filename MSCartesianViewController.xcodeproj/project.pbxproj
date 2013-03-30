@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		62DD2020C3E71AFD3681B332 /* MSCartesianMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD22CA6B4F9A9A382FE489 /* MSCartesianMasterViewController.m */; };
 		62DD209792A031B37E752F4D /* MSCartesianView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD28CB3371A35156859330 /* MSCartesianView.m */; };
-		62DD27566A172FF70A1DAF2A /* MSCartesianChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD25FAB0B27CAA1C3FB08B /* MSCartesianChildViewController.m */; };
+		62DD29B4BBAFF4BC7BA97AD1 /* UIViewController+MSCartesianViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD21DB4F5641192FBF9E14 /* UIViewController+MSCartesianViewController.m */; };
 		62DD2C5DC26E0E7E9801B04A /* MSPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */; };
 		A97A5FCC170600640009A57F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97A5FCB170600640009A57F /* UIKit.framework */; };
 		A97A5FCE170600640009A57F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97A5FCD170600640009A57F /* Foundation.framework */; };
@@ -24,13 +24,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62DD21DB4F5641192FBF9E14 /* UIViewController+MSCartesianViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MSCartesianViewController.m"; sourceTree = "<group>"; };
+		62DD229715A4484CB2AFFBE8 /* UIViewController+MSCartesianViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MSCartesianViewController.h"; sourceTree = "<group>"; };
 		62DD22CA6B4F9A9A382FE489 /* MSCartesianMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCartesianMasterViewController.m; sourceTree = "<group>"; };
 		62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPanGestureRecognizer.h; sourceTree = "<group>"; };
 		62DD245BDB81670306659FFC /* MSCartesianView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCartesianView.h; sourceTree = "<group>"; };
-		62DD25FAB0B27CAA1C3FB08B /* MSCartesianChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCartesianChildViewController.m; sourceTree = "<group>"; };
 		62DD28CB3371A35156859330 /* MSCartesianView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSCartesianView.m; sourceTree = "<group>"; };
 		62DD29385AD67654580B8083 /* MSCartesianMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCartesianMasterViewController.h; sourceTree = "<group>"; };
-		62DD2CD879AF8766ADE872E7 /* MSCartesianChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSCartesianChildViewController.h; sourceTree = "<group>"; };
 		62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPanGestureRecognizer.m; sourceTree = "<group>"; };
 		A97A5FC8170600640009A57F /* MSCartesianViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSCartesianViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A97A5FCB170600640009A57F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -67,12 +67,12 @@
 			children = (
 				62DD22CA6B4F9A9A382FE489 /* MSCartesianMasterViewController.m */,
 				62DD29385AD67654580B8083 /* MSCartesianMasterViewController.h */,
-				62DD25FAB0B27CAA1C3FB08B /* MSCartesianChildViewController.m */,
-				62DD2CD879AF8766ADE872E7 /* MSCartesianChildViewController.h */,
 				62DD28CB3371A35156859330 /* MSCartesianView.m */,
 				62DD245BDB81670306659FFC /* MSCartesianView.h */,
 				62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */,
 				62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */,
+				62DD21DB4F5641192FBF9E14 /* UIViewController+MSCartesianViewController.m */,
+				62DD229715A4484CB2AFFBE8 /* UIViewController+MSCartesianViewController.h */,
 			);
 			path = MSCartesianViewController;
 			sourceTree = "<group>";
@@ -200,9 +200,9 @@
 				A97A5FD8170600640009A57F /* main.m in Sources */,
 				A97A5FDC170600640009A57F /* MSAppDelegate.m in Sources */,
 				62DD2020C3E71AFD3681B332 /* MSCartesianMasterViewController.m in Sources */,
-				62DD27566A172FF70A1DAF2A /* MSCartesianChildViewController.m in Sources */,
 				62DD209792A031B37E752F4D /* MSCartesianView.m in Sources */,
 				62DD2C5DC26E0E7E9801B04A /* MSPanGestureRecognizer.m in Sources */,
+				62DD29B4BBAFF4BC7BA97AD1 /* UIViewController+MSCartesianViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

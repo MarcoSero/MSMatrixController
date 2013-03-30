@@ -8,7 +8,7 @@
 
 #import "MSAppDelegate.h"
 #import "MSCartesianMasterViewController.h"
-#import "MSCartesianChildViewController.h"
+#import "UIViewController+MSCartesianViewController.h"
 
 @implementation MSAppDelegate
 
@@ -19,19 +19,19 @@
   UIViewController *initialViewController = self.window.rootViewController;
   MSCartesianMasterViewController *cartesianMasterViewController = [[MSCartesianMasterViewController alloc] initWithFrame:initialViewController.view.frame];
 
-  MSCartesianChildViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
+  UIViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
   position00ViewController.row = 0;
   position00ViewController.col = 0;
 
-  MSCartesianChildViewController *position01ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position01"];
+  UIViewController *position01ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position01"];
   position01ViewController.row = 0;
   position01ViewController.col = 1;
 
-  MSCartesianChildViewController *position11ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position11"];
+  UIViewController *position11ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position11"];
   position11ViewController.row = 1;
   position11ViewController.col = 1;
 
-  MSCartesianChildViewController *position12ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position12"];
+  UIViewController *position12ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position12"];
   position12ViewController.row = 1;
   position12ViewController.col = 2;
 

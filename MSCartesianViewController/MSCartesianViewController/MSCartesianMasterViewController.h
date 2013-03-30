@@ -9,23 +9,9 @@
 
 @class MSCartesianChildViewController;
 
-typedef enum {
-  MSPanDirectionNone,
-  MSPanDirectionRight,
-  MSPanDirectionLeft,
-  MSPanDirectionUp,
-  MSPanDirectionDown
-} MSPanDirection;
-
-typedef enum {
-  MSPanWayNone,
-  MSPanWayHorizontal,
-  MSPanWayVertical
-} MSPanWay;
-
 @interface MSCartesianMasterViewController : UIViewController
 
-@property (weak, readonly, nonatomic) MSCartesianChildViewController *visibleViewController;
+@property (weak, readonly, nonatomic) UIViewController *visibleViewController;
 @property (strong, readonly, nonatomic) NSArray *childrenViewControllers;
 
 - (id)initWithFrame:(CGRect)frame;

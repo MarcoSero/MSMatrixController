@@ -9,6 +9,19 @@
 #import <UIKit/UIGestureRecognizerSubclass.h>
 #import "MSCartesianMasterViewController.h"
 
+typedef enum {
+  MSPanDirectionRight,
+  MSPanDirectionLeft,
+  MSPanDirectionUp,
+  MSPanDirectionDown
+} MSPanDirection;
+
+typedef enum {
+  MSPanWayHorizontal,
+  MSPanWayVertical
+} MSPanWay;
+
+
 @interface MSPanGestureRecognizer : UIPanGestureRecognizer <UIGestureRecognizerDelegate>
 
 @property (nonatomic, readonly) MSPanWay way;
