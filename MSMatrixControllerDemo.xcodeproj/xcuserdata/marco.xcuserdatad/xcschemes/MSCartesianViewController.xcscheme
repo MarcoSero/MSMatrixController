@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A97A5FC7170600640009A57F"
-               BuildableName = "MSMatrixController.app"
-               BlueprintName = "MSMatrixController"
-               ReferencedContainer = "container:MSMatrixController.xcodeproj">
+               BuildableName = "MSMatrixControllerDemo.app"
+               BlueprintName = "MSMatrixControllerDemo"
+               ReferencedContainer = "container:MSMatrixControllerDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A97A5FC7170600640009A57F"
-            BuildableName = "MSMatrixController.app"
-            BlueprintName = "MSMatrixController"
-            ReferencedContainer = "container:MSMatrixController.xcodeproj">
+            BuildableName = "MSMatrixControllerDemo.app"
+            BlueprintName = "MSMatrixControllerDemo"
+            ReferencedContainer = "container:MSMatrixControllerDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A97A5FC7170600640009A57F"
-            BuildableName = "MSMatrixController.app"
-            BlueprintName = "MSMatrixController"
-            ReferencedContainer = "container:MSMatrixController.xcodeproj">
+            BuildableName = "MSMatrixControllerDemo.app"
+            BlueprintName = "MSMatrixControllerDemo"
+            ReferencedContainer = "container:MSMatrixControllerDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A97A5FC7170600640009A57F"
-            BuildableName = "MSMatrixController.app"
-            BlueprintName = "MSMatrixController"
-            ReferencedContainer = "container:MSMatrixController.xcodeproj">
+            BuildableName = "MSMatrixControllerDemo.app"
+            BlueprintName = "MSMatrixControllerDemo"
+            ReferencedContainer = "container:MSMatrixControllerDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

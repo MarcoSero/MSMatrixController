@@ -7,8 +7,7 @@
 //
 
 #import "MSAppDelegate.h"
-#import "MSMatrixMasterViewController.h"
-#import "UIViewController+MSMatrixController.h"
+#import "MSMatrixController.h"
 
 @implementation MSAppDelegate
 

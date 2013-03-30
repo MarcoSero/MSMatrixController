@@ -22,4 +22,9 @@
 - (id)initWithFrame:(CGRect)frame;
 - (void)setChildren:(NSArray *)children;
 
+- (void)goLeft;
+- (void)goRight;
+- (void)goUp;
+- (void)goDown;
+
 @end

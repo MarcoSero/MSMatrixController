@@ -68,6 +68,7 @@
   self.view.frame = frame;
 
   for (UIViewController *child in _childrenViewControllers) {
+    child.masterViewController = self;
     [self addChildViewController:child];
     [self.view addSubview:child.view];
     [child didMoveToParentViewController:self];
@@ -78,6 +79,30 @@
 
   _visibleViewController = [_childrenViewControllers objectAtIndex:0];
 }
+
+#pragma mark - Public methods
+
+- (void)goLeft
+{
+  [self goToViewController:_visibleViewController.leftViewController way:MSPanWayHorizontal];
+}
+
+- (void)goRight
+{
+  [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal];
+}
+
+- (void)goUp
+{
+  [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical];
+}
+
+- (void)goDown
+{
+  [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical];
+}
+
+#pragma mark - Private methods
 
 - (UIViewController *)getControllerAtPosition:(Position)position
 {
@@ -206,6 +231,11 @@
     NSLog(@"go to original view controller");
     [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone];
   }
+}
+
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way
+{
+  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way];
 }
 
 - (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way
