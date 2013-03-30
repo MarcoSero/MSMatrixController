@@ -279,10 +279,14 @@
 		A97A5FE6170600640009A57F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MSCartesianViewController/MSCartesianViewController-Prefix.pch";
 				INFOPLIST_FILE = "MSCartesianViewController/MSCartesianViewController-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "BF25A51B-DD73-4393-B489-135834E1F621";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF25A51B-DD73-4393-B489-135834E1F621";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

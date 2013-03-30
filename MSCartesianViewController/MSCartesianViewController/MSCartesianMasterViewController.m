@@ -97,17 +97,17 @@
 {
   if (pan.state == UIGestureRecognizerStateBegan) {
     _positionBeforePan = self.view.frame.origin;
+    _lastPanningWay = pan.way;
   }
-
   else if (pan.state == UIGestureRecognizerStateChanged) {
-    [self handlePanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
+    [self handlePanWithDirection:pan.direction way:pan.way velocity:[pan velocityInView:self.view] translation:[pan translationInView:self.view]];
   }
   else if (pan.state == UIGestureRecognizerStateEnded) {
     [self handleEndedPanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
   }
 }
 
-- (void)handlePanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
+- (void)handlePanWithDirection:(MSPanDirection)direction way:(MSPanWay)way velocity:(CGPoint)velocity translation:(CGPoint)translation
 {
   /*
 
@@ -117,12 +117,11 @@ if ((direction == MSPanDirectionRight && _visibleViewController.rightViewControl
 (direction == MSPanDirectionDown && _visibleViewController.bottomViewController == nil)) {
   return;
 }
-
-if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || direction == MSPanDirectionDown)) ||
-  (_lastPanningWay == MSWayPanVertical && (direction == MSPanDirectionRight || direction == MSPanDirectionLeft))) {
-  return;
-}
 */
+
+  if (_lastPanningWay != way) {
+    return;
+  }
 
   if (direction == MSPanDirectionRight || direction == MSPanDirectionLeft) {
     translation.y = 0;
@@ -157,7 +156,9 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
 
   BOOL overHorizontalThreshold = fabs(translation.x) > horizontalThreshold;
   BOOL overVerticalThreshold = fabs(translation.y) > verticalThreshold;
-  BOOL overVelocityThreshold = fabs(velocity.x) > velocityThreshold || fabs(velocity.y) > velocityThreshold;
+  BOOL overVelocityXThreshold = fabs(velocity.x) > velocityThreshold;
+  BOOL overVelocityYThreshold = fabs(velocity.y) > velocityThreshold;
+
 
   if (!nextControllerExists) {
     [self goToViewController:_visibleViewController];
@@ -166,7 +167,8 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
 
   NSLog(@"velocity x %f y %f", velocity.x, velocity.y);
 
-  if (overHorizontalThreshold || overVelocityThreshold) {
+  if (overHorizontalThreshold || overVelocityXThreshold) {
+    NSLog(@"X axis");
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
       [self goToViewController:_visibleViewController.leftViewController];
@@ -176,7 +178,8 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
       [self goToViewController:_visibleViewController.rightViewController];
     }
   }
-  else if (overVerticalThreshold || overVelocityThreshold) {
+  else if (overVerticalThreshold || overVelocityYThreshold) {
+    NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
       [self goToViewController:_visibleViewController.topViewController];
@@ -187,19 +190,18 @@ if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || 
     }
   }
   else {
+    NSLog(@"go to original view controller");
     [self goToViewController:_visibleViewController];
   }
 }
 
 - (void)goToViewController:(MSCartesianChildViewController *)newController
 {
-  NSLog(@"goto view controller CALLED");
-
   [UIView animateWithDuration:0.5 animations:^{
     NSLog(@"old frame %@", self.view);
     CGRect frameForVisibleViewController = self.view.frame;
-    frameForVisibleViewController.origin.x = - newController.view.frame.origin.x;
-    frameForVisibleViewController.origin.y = - newController.view.frame.origin.y;
+    frameForVisibleViewController.origin.x = -newController.view.frame.origin.x;
+    frameForVisibleViewController.origin.y = -newController.view.frame.origin.y;
     self.view.frame = frameForVisibleViewController;
     NSLog(@"new frame %@", self.view);
   }                completion:^(BOOL finished) {

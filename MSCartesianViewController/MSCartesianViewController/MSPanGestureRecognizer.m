@@ -7,6 +7,13 @@
 
 #import "MSPanGestureRecognizer.h"
 
+@interface MSPanGestureRecognizer ()
+@property(nonatomic, assign) NSUInteger minNumberTouchesLeft;
+@property(nonatomic, assign) NSUInteger minNumberTouchesRight;
+@property(nonatomic, assign) NSUInteger minNumberTouchesUp;
+@property(nonatomic, assign) NSUInteger minNumberTouchesDown;
+@end
+
 @implementation MSPanGestureRecognizer
 
 - (id)initWithTarget:(id)target action:(SEL)action
@@ -73,12 +80,18 @@
       return MSPanDirectionRight;
     }
   }
-
 }
 
-- (void)setRecognizerState:(UIGestureRecognizerState)state
+
+- (MSPanWay)way
 {
-  self.state = state;
+  CGPoint velocity = [self velocityInView:self.view.window];
+  if (fabs(velocity.y) > fabs(velocity.x)) {
+    return MSPanWayVertical;
+  }
+  else {
+    return MSPanWayHorizontal;
+  }
 }
 
 @end
