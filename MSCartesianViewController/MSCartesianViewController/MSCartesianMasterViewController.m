@@ -93,135 +93,37 @@
   return [viewControllersWithMatchedPosition objectAtIndex:0];
 }
 
-- (void)panDetected:(UIPanGestureRecognizer *)pan
+- (void)panDetected:(MSPanGestureRecognizer *)pan
 {
-
+  NSLog(@"direction %d", pan.direction);
   if (pan.state == UIGestureRecognizerStateBegan) {
     _positionBeforePan = self.view.frame.origin;
-    _lastPanningWay = MSPanWayNone;
-    _numberPanDetectedCalled = 0;
   }
 
-  CGFloat const gestureMinimumTranslation = 20.0;
-  CGPoint translation = [pan translationInView:self.view];
-  CGPoint velocity = [pan velocityInView:self.view];
-  MSPanDirection panDirection = MSPanDirectionNone;
-  MSPanWay panWay = MSPanWayNone;
-  _numberPanDetectedCalled++;
-
-  // determine if horizontal swipe only if you meet some minimum velocity
-  if (fabs(translation.x) > gestureMinimumTranslation) {
-    BOOL gestureHorizontal = NO;
-
-    if (translation.y == 0.0) {
-      gestureHorizontal = YES;
-    } else {
-      gestureHorizontal = (fabs(translation.x / translation.y) > 5.0);
-    }
-
-    if (gestureHorizontal) {
-      if (translation.x > 0.0) {
-        NSLog(@"moved right");
-        panDirection = MSPanDirectionRight;
-      } else {
-        NSLog(@"moved left");
-        panDirection = MSPanDirectionLeft;
-      }
-      panWay = MSPanWayHorizontal;
-    }
+  else if (pan.state == UIGestureRecognizerStateChanged) {
+    [self handlePanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
   }
-    // determine if vertical swipe only if you meet some minimum velocity
-  else if (fabs(translation.y) > gestureMinimumTranslation) {
-    BOOL gestureVertical = NO;
-
-    if (translation.x == 0.0) {
-      gestureVertical = YES;
-    } else {
-      gestureVertical = (fabs(translation.y / translation.x) > 5.0);
-    }
-
-    if (gestureVertical) {
-      if (translation.y > 0.0) {
-        NSLog(@"moved down");
-        panDirection = MSPanDirectionDown;
-      } else {
-        NSLog(@"moved up");
-        panDirection = MSPanDirectionUp;
-      }
-      panWay = MSPanWayVertical;
-    }
+  else if (pan.state == UIGestureRecognizerStateEnded) {
+    [self handleEndedPanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
   }
-
-
-  if (_numberPanDetectedCalled == 2) {
-    _lastPanningWay = panWay;
-  }
-
-  if (panWay != _lastPanningWay) {
-    return;
-  }
-
-  if (pan.state == UIGestureRecognizerStateEnded) {
-    [self handleEndedPanWithDirection:panDirection translation:translation velocity:velocity];
-  }
-  else {
-    NSLog(@"handle pan with direction %d", panDirection);
-   [self handlePanWithDirection:panDirection translation:translation velocity:velocity];
-  }
-}
-
-- (void)handleEndedPanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
-{
-  const CGFloat horizontalThreshold = _visibleViewController.view.frame.size.width / 2;
-  const CGFloat verticalThreshold = _visibleViewController.view.frame.size.height / 2;
-
-  if (fabs(translation.x) > horizontalThreshold) {
-    if (direction == MSPanDirectionLeft && _visibleViewController.rightViewController) {
-      [self goToViewController:_visibleViewController.rightViewController];
-    }
-    else if (direction == MSPanDirectionRight && _visibleViewController.leftViewController) {
-      [self goToViewController:_visibleViewController.leftViewController];
-    }
-  }
-  else if (fabs(translation.y) > verticalThreshold) {
-    if (direction == MSPanDirectionUp && _visibleViewController.bottomViewController) {
-      [self goToViewController:_visibleViewController.bottomViewController];
-    }
-    else if (direction == MSPanDirectionDown && _visibleViewController.topViewController) {
-      [self goToViewController:_visibleViewController.topViewController];
-    }
-  }
-}
-
-- (void)goToViewController:(MSCartesianChildViewController *)newController
-{
-  NSLog(@"goto view controller CALLED");
-  [UIView animateWithDuration:0.5 animations:^{
-    CGRect frame = self.view.frame;
-    frame.origin = newController.view.frame.origin;
-    self.view.frame = frame;
-  }                completion:^(BOOL finished) {
-    if (finished) {
-      _visibleViewController = newController;
-    }
-  }];
 }
 
 - (void)handlePanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
 {
-  if ((direction == MSPanDirectionRight && _visibleViewController.leftViewController == nil) ||
-    (direction == MSPanDirectionLeft && _visibleViewController.rightViewController == nil) ||
-    (direction == MSPanDirectionUp && _visibleViewController.bottomViewController == nil) ||
-    (direction == MSPanDirectionDown && _visibleViewController.topViewController == nil)) {
-    return;
-  }
-
   /*
-  if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || direction == MSPanDirectionDown)) ||
-    (_lastPanningWay == MSWayPanVertical && (direction == MSPanDirectionRight || direction == MSPanDirectionLeft))) {
-    return;
-  }
-  */
+
+if ((direction == MSPanDirectionRight && _visibleViewController.rightViewController == nil) ||
+(direction == MSPanDirectionLeft && _visibleViewController.leftViewController == nil) ||
+(direction == MSPanDirectionUp && _visibleViewController.topViewController == nil) ||
+(direction == MSPanDirectionDown && _visibleViewController.bottomViewController == nil)) {
+  return;
+}
+
+if ((_lastPanningWay == MSWayPanHorizontal && (direction == MSPanDirectionUp || direction == MSPanDirectionDown)) ||
+  (_lastPanningWay == MSWayPanVertical && (direction == MSPanDirectionRight || direction == MSPanDirectionLeft))) {
+  return;
+}
+*/
 
   if (direction == MSPanDirectionRight || direction == MSPanDirectionLeft) {
     translation.y = 0;
@@ -233,8 +135,6 @@
     return;
   }
 
-  NSLog(@"direction %d ... applying translation %f %f", direction, translation.x, translation.y);
-
   CGRect frame = self.view.frame;
   CGPoint newOrigin;
   newOrigin.x = _positionBeforePan.x + translation.x;
@@ -243,57 +143,61 @@
   self.view.frame = frame;
 }
 
-- (void)changeCurrentViewControllerAfterPanDirection:(MSPanDirection)panDirection
+- (void)handleEndedPanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
 {
-  NSInteger direction = panDirection;
-  CGFloat maxX = self.view.frame.size.width;
-  CGFloat maxY = self.view.frame.size.height;
-  switch (direction) {
-    case MSPanDirectionRight:
-      [self changeCurrentViewControllerWithController:_visibleViewController.leftViewController finishAnimationAtPoint:CGPointMake(maxX, 0)];
-      break;
-    case MSPanDirectionLeft:
-      [self changeCurrentViewControllerWithController:_visibleViewController.rightViewController finishAnimationAtPoint:CGPointMake(-maxX, 0)];
-      break;
-    case MSPanDirectionUp:
-      [self changeCurrentViewControllerWithController:_visibleViewController.bottomViewController finishAnimationAtPoint:CGPointMake(0, -maxY)];
-      break;
-    case MSPanDirectionDown:
-      [self changeCurrentViewControllerWithController:_visibleViewController.topViewController finishAnimationAtPoint:CGPointMake(0, maxY)];
-      break;
-    default:
-      break;
-  }
-}
+  const CGFloat horizontalThreshold = _visibleViewController.view.frame.size.width / 4;
+  const CGFloat verticalThreshold = _visibleViewController.view.frame.size.height / 4;
 
-- (void)changeCurrentViewControllerWithController:(MSCartesianChildViewController *)newController finishAnimationAtPoint:(CGPoint)pointForAnimation
-{
-  if (newController == nil) {
+  BOOL nextControllerExists = NO;
+  nextControllerExists |= direction == MSPanDirectionRight && _visibleViewController.rightViewController;
+  nextControllerExists |= direction == MSPanDirectionLeft && _visibleViewController.leftViewController;
+  nextControllerExists |= direction == MSPanDirectionUp && _visibleViewController.topViewController;
+  nextControllerExists |= direction == MSPanDirectionDown && _visibleViewController.bottomViewController;
+
+  if (!nextControllerExists) {
+    [self goToViewController:_visibleViewController];
     return;
   }
 
-  // add new
-  [self addChildViewController:newController];
-  newController.view.frame = self.view.bounds;
-  [self.view insertSubview:newController.view belowSubview:_visibleViewController.view];
-  [newController didMoveToParentViewController:self];
+  if (fabs(translation.x) > horizontalThreshold) {
+    if (direction == MSPanDirectionLeft) {
+      NSLog(@"goto left controller");
+      [self goToViewController:_visibleViewController.leftViewController];
+    }
+    else if (direction == MSPanDirectionRight) {
+      NSLog(@"goto right controller");
+      [self goToViewController:_visibleViewController.rightViewController];
+    }
+  }
+  else if (fabs(translation.y) > verticalThreshold) {
+    if (direction == MSPanDirectionUp) {
+      NSLog(@"goto top controller");
+      [self goToViewController:_visibleViewController.topViewController];
+    }
+    else if (direction == MSPanDirectionDown) {
+      NSLog(@"goto bottom controller");
+      [self goToViewController:_visibleViewController.bottomViewController];
+    }
+  }
+}
 
-  [UIView animateWithDuration:1.0 animations:^{
+- (void)goToViewController:(MSCartesianChildViewController *)newController
+{
+  NSLog(@"goto view controller CALLED");
 
-    CGRect newRect = _visibleViewController.view.frame;
-    newRect.origin = pointForAnimation;
-    _visibleViewController.view.frame = newRect;
-
+  [UIView animateWithDuration:0.5 animations:^{
+    NSLog(@"old frame %@", self.view);
+    CGRect frameForVisibleViewController = self.view.frame;
+    frameForVisibleViewController.origin.x = - newController.view.frame.origin.x;
+    frameForVisibleViewController.origin.y = - newController.view.frame.origin.y;
+    self.view.frame = frameForVisibleViewController;
+    NSLog(@"new frame %@", self.view);
   }                completion:^(BOOL finished) {
     if (finished) {
-      // remove old
-      [_visibleViewController willMoveToParentViewController:self];
-      [_visibleViewController.view removeFromSuperview];
-      [_visibleViewController removeFromParentViewController];
       _visibleViewController = newController;
+      NSLog(@"visible view controller changed %@", _visibleViewController.view);
     }
   }];
-
 }
 
 @end
