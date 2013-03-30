@@ -295,6 +295,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MSMatrixControllerDemo/MSMatrixControllerDemo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MSMatrixControllerDemo/MSMatrixControllerDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = MSMatrixControllerDemo;
 				PROVISIONING_PROFILE = "BF25A51B-DD73-4393-B489-135834E1F621";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF25A51B-DD73-4393-B489-135834E1F621";
@@ -308,6 +309,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MSMatrixControllerDemo/MSMatrixControllerDemo-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/MSMatrixControllerDemo/MSMatrixControllerDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = MSMatrixControllerDemo;
 				WRAPPER_EXTENSION = app;
 			};

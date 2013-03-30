@@ -241,23 +241,30 @@
 - (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way
 {
   NSTimeInterval velocityAnimation = INT_MAX;
-  if (way == MSPanWayHorizontal) {
-    CGFloat points = fabsf(_visibleViewController.view.frame.size.width - (CGFloat)fabs(translation.x));
-    CGFloat panVelocity = fabsf(velocity.x);
-    if (panVelocity > 0) {
-      velocityAnimation = points / panVelocity;
-    }
+
+  if (translation.x == 0 && translation.y == 0 && velocity.x == 0 && velocity.y == 0) {
+    velocityAnimation = 0.3;
   }
+
   else {
-    CGFloat points = fabsf(translation.y);
-    CGFloat panVelocity = fabsf(_visibleViewController.view.frame.size.height - (CGFloat)fabs(velocity.y));
-    if (panVelocity > 0) {
-      velocityAnimation = points / panVelocity;
+    if (way == MSPanWayHorizontal) {
+      CGFloat points = fabsf(_visibleViewController.view.frame.size.width - (CGFloat)fabs(translation.x));
+      CGFloat panVelocity = fabsf(velocity.x);
+      if (panVelocity > 0) {
+        velocityAnimation = points / panVelocity;
+      }
     }
+    else {
+      CGFloat points = fabsf(translation.y);
+      CGFloat panVelocity = fabsf(_visibleViewController.view.frame.size.height - (CGFloat)fabs(velocity.y));
+      if (panVelocity > 0) {
+        velocityAnimation = points / panVelocity;
+      }
+    }
+    NSLog(@"velocity %f", velocityAnimation);
+    velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
+    NSLog(@"velocity %f", velocityAnimation);
   }
-  NSLog(@"velocity %f", velocityAnimation);
-  velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
-  NSLog(@"velocity %f", velocityAnimation);
 
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;
