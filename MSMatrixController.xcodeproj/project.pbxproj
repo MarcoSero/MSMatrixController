@@ -1,0 +1,331 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		62DD2020C3E71AFD3681B332 /* MSMatrixMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */; };
+		62DD209792A031B37E752F4D /* MSMatrixView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD28CB3371A35156859330 /* MSMatrixView.m */; };
+		62DD29B4BBAFF4BC7BA97AD1 /* UIViewController+MSMatrixController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */; };
+		62DD2C5DC26E0E7E9801B04A /* MSPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */; };
+		A97A5FCC170600640009A57F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97A5FCB170600640009A57F /* UIKit.framework */; };
+		A97A5FCE170600640009A57F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97A5FCD170600640009A57F /* Foundation.framework */; };
+		A97A5FD0170600640009A57F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97A5FCF170600640009A57F /* CoreGraphics.framework */; };
+		A97A5FD6170600640009A57F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FD4170600640009A57F /* InfoPlist.strings */; };
+		A97A5FD8170600640009A57F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A5FD7170600640009A57F /* main.m */; };
+		A97A5FDC170600640009A57F /* MSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A97A5FDB170600640009A57F /* MSAppDelegate.m */; };
+		A97A5FDE170600640009A57F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FDD170600640009A57F /* Default.png */; };
+		A97A5FE0170600640009A57F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FDF170600640009A57F /* Default@2x.png */; };
+		A97A5FE2170600640009A57F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FE1170600640009A57F /* Default-568h@2x.png */; };
+		A97A5FE917060B7B0009A57F /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FE817060B7B0009A57F /* iPhone.storyboard */; };
+		A9FD76F0170716470005AB67 /* MSMatrixController-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FD9170600640009A57F /* MSMatrixController-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MSMatrixController.m"; sourceTree = "<group>"; };
+		62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MSMatrixController.h"; sourceTree = "<group>"; };
+		62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMatrixMasterViewController.m; sourceTree = "<group>"; };
+		62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPanGestureRecognizer.h; sourceTree = "<group>"; };
+		62DD245BDB81670306659FFC /* MSMatrixView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMatrixView.h; sourceTree = "<group>"; };
+		62DD28CB3371A35156859330 /* MSMatrixView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMatrixView.m; sourceTree = "<group>"; };
+		62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMatrixMasterViewController.h; sourceTree = "<group>"; };
+		62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPanGestureRecognizer.m; sourceTree = "<group>"; };
+		A97A5FC8170600640009A57F /* MSMatrixController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSMatrixController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A97A5FCB170600640009A57F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A97A5FCD170600640009A57F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A97A5FCF170600640009A57F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A97A5FD5170600640009A57F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A97A5FD7170600640009A57F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A97A5FD9170600640009A57F /* MSMatrixController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MSMatrixController-Info.plist"; sourceTree = "<group>"; };
+		A97A5FDA170600640009A57F /* MSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAppDelegate.h; sourceTree = "<group>"; };
+		A97A5FDB170600640009A57F /* MSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAppDelegate.m; sourceTree = "<group>"; };
+		A97A5FDD170600640009A57F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		A97A5FDF170600640009A57F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		A97A5FE1170600640009A57F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A97A5FE817060B7B0009A57F /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
+		A9FD76F2170718600005AB67 /* MSMatrixController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MSMatrixController-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A97A5FC5170600640009A57F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A97A5FCC170600640009A57F /* UIKit.framework in Frameworks */,
+				A97A5FCE170600640009A57F /* Foundation.framework in Frameworks */,
+				A97A5FD0170600640009A57F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		62DD2D964482E6E4C771FCF7 /* MSMatrixController */ = {
+			isa = PBXGroup;
+			children = (
+				62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */,
+				62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */,
+				62DD28CB3371A35156859330 /* MSMatrixView.m */,
+				62DD245BDB81670306659FFC /* MSMatrixView.h */,
+				62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */,
+				62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */,
+				62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */,
+				62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */,
+			);
+			path = MSMatrixController;
+			sourceTree = "<group>";
+		};
+		A97A5FBF170600640009A57F = {
+			isa = PBXGroup;
+			children = (
+				A97A5FD1170600640009A57F /* MSMatrixController */,
+				A97A5FCA170600640009A57F /* Frameworks */,
+				A97A5FC9170600640009A57F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A97A5FC9170600640009A57F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A97A5FC8170600640009A57F /* MSMatrixController.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A97A5FCA170600640009A57F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A97A5FCB170600640009A57F /* UIKit.framework */,
+				A97A5FCD170600640009A57F /* Foundation.framework */,
+				A97A5FCF170600640009A57F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A97A5FD1170600640009A57F /* MSMatrixController */ = {
+			isa = PBXGroup;
+			children = (
+				A97A5FDA170600640009A57F /* MSAppDelegate.h */,
+				A97A5FDB170600640009A57F /* MSAppDelegate.m */,
+				A97A5FE817060B7B0009A57F /* iPhone.storyboard */,
+				A97A5FD2170600640009A57F /* Supporting Files */,
+				62DD2D964482E6E4C771FCF7 /* MSMatrixController */,
+			);
+			path = MSMatrixController;
+			sourceTree = "<group>";
+		};
+		A97A5FD2170600640009A57F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A97A5FD4170600640009A57F /* InfoPlist.strings */,
+				A97A5FD7170600640009A57F /* main.m */,
+				A97A5FD9170600640009A57F /* MSMatrixController-Info.plist */,
+				A9FD76F2170718600005AB67 /* MSMatrixController-Prefix.pch */,
+				A97A5FDD170600640009A57F /* Default.png */,
+				A97A5FDF170600640009A57F /* Default@2x.png */,
+				A97A5FE1170600640009A57F /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A97A5FC7170600640009A57F /* MSMatrixController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A97A5FE5170600640009A57F /* Build configuration list for PBXNativeTarget "MSMatrixController" */;
+			buildPhases = (
+				A97A5FC4170600640009A57F /* Sources */,
+				A97A5FC5170600640009A57F /* Frameworks */,
+				A97A5FC6170600640009A57F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MSMatrixController;
+			productName = MSCartesianViewController;
+			productReference = A97A5FC8170600640009A57F /* MSMatrixController.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A97A5FC0170600640009A57F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MS;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Marco Sero";
+			};
+			buildConfigurationList = A97A5FC3170600640009A57F /* Build configuration list for PBXProject "MSMatrixController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A97A5FBF170600640009A57F;
+			productRefGroup = A97A5FC9170600640009A57F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A97A5FC7170600640009A57F /* MSMatrixController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A97A5FC6170600640009A57F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A97A5FD6170600640009A57F /* InfoPlist.strings in Resources */,
+				A97A5FDE170600640009A57F /* Default.png in Resources */,
+				A97A5FE0170600640009A57F /* Default@2x.png in Resources */,
+				A97A5FE2170600640009A57F /* Default-568h@2x.png in Resources */,
+				A97A5FE917060B7B0009A57F /* iPhone.storyboard in Resources */,
+				A9FD76F0170716470005AB67 /* MSMatrixController-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A97A5FC4170600640009A57F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A97A5FD8170600640009A57F /* main.m in Sources */,
+				A97A5FDC170600640009A57F /* MSAppDelegate.m in Sources */,
+				62DD2020C3E71AFD3681B332 /* MSMatrixMasterViewController.m in Sources */,
+				62DD209792A031B37E752F4D /* MSMatrixView.m in Sources */,
+				62DD2C5DC26E0E7E9801B04A /* MSPanGestureRecognizer.m in Sources */,
+				62DD29B4BBAFF4BC7BA97AD1 /* UIViewController+MSMatrixController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A97A5FD4170600640009A57F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A97A5FD5170600640009A57F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A97A5FE3170600640009A57F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A97A5FE4170600640009A57F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A97A5FE6170600640009A57F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Marco Sero (EDXL3R5QU9)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSMatrixController/MSMatrixController-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MSMatrixController/MSMatrixController-Info.plist";
+				PRODUCT_NAME = MSMatrixController;
+				PROVISIONING_PROFILE = "BF25A51B-DD73-4393-B489-135834E1F621";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BF25A51B-DD73-4393-B489-135834E1F621";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A97A5FE7170600640009A57F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MSMatrixController/MSMatrixController-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/MSMatrixController/MSMatrixController-Info.plist";
+				PRODUCT_NAME = MSMatrixController;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A97A5FC3170600640009A57F /* Build configuration list for PBXProject "MSMatrixController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A97A5FE3170600640009A57F /* Debug */,
+				A97A5FE4170600640009A57F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A97A5FE5170600640009A57F /* Build configuration list for PBXNativeTarget "MSMatrixController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A97A5FE6170600640009A57F /* Debug */,
+				A97A5FE7170600640009A57F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A97A5FC0170600640009A57F /* Project object */;
+}
