@@ -17,6 +17,7 @@ typedef enum {
 } MSPanDirection;
 
 typedef enum {
+  MSPanWayNone,
   MSPanWayHorizontal,
   MSPanWayVertical
 } MSPanWay;
