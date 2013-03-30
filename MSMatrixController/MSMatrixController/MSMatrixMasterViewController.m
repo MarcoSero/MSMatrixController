@@ -185,7 +185,7 @@
     NSLog(@"old frame %@", self.view);
     CGRect frameForVisibleViewController = self.view.frame;
     frameForVisibleViewController.origin.x = -newController.view.frame.origin.x;
-    frameForVisibleViewController.origin.y = -newController.view.frame.origin.y;
+    frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
     self.view.frame = frameForVisibleViewController;
     NSLog(@"new frame %@", self.view);
   }                completion:^(BOOL finished) {
