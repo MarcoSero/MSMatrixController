@@ -4,10 +4,12 @@
 //
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "MSMatrixMasterViewController.h"
 #import "MSMatrixView.h"
 #import "MSPanGestureRecognizer.h"
-#import "UIViewController+MSMatrixController.h"
+
+#define alphaHiddenControllers 0.4
 
 @interface MSMatrixMasterViewController ()
 @property(strong, nonatomic) MSPanGestureRecognizer *panGestureRecognizer;
@@ -123,11 +125,38 @@
   newOrigin.y = _positionBeforePan.y + translation.y;
   frame.origin = newOrigin;
   self.view.frame = frame;
+
+  // TODO: change alpha value
+  UIViewController *destinationViewController;
+  CGFloat movedPoints = 0;
+  CGFloat totalPoints = 0;
+  if (direction == MSPanDirectionLeft) {
+    totalPoints = _visibleViewController.view.frame.size.width;
+    movedPoints = fabsf(translation.x);
+    destinationViewController = _visibleViewController.leftViewController;
+  }
+  else if (direction == MSPanDirectionRight) {
+    totalPoints = _visibleViewController.view.frame.size.width;
+    movedPoints = fabsf(translation.x);
+    destinationViewController = _visibleViewController.rightViewController;
+  }
+  else if (direction == MSPanDirectionUp) {
+    totalPoints = _visibleViewController.view.frame.size.height;
+    movedPoints = fabsf(translation.y);
+    destinationViewController = _visibleViewController.topViewController;
+  }
+  else if (direction == MSPanDirectionDown) {
+    totalPoints = _visibleViewController.view.frame.size.height;
+    movedPoints = fabsf(translation.y);
+    destinationViewController = _visibleViewController.bottomViewController;
+  }
+  float alphaValue = movedPoints / totalPoints;
+  destinationViewController.view.alpha = alphaHiddenControllers + alphaValue;
+  _visibleViewController.view.alpha = alphaHiddenControllers + fabsf(1 - alphaValue);
 }
 
 - (void)handleEndedPanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
 {
-
   const CGFloat horizontalThreshold = _visibleViewController.view.frame.size.width / 4;
   const CGFloat verticalThreshold = _visibleViewController.view.frame.size.height / 4;
   const CGFloat velocityThreshold = 1000;
@@ -145,7 +174,7 @@
 
 
   if (!nextControllerExists) {
-    [self goToViewController:_visibleViewController];
+    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone];
     return;
   }
 
@@ -155,43 +184,68 @@
     NSLog(@"X axis");
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
-      [self goToViewController:_visibleViewController.leftViewController];
+      [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal];
     }
     else if (direction == MSPanDirectionRight) {
       NSLog(@"goto right controller");
-      [self goToViewController:_visibleViewController.rightViewController];
+      [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal];
     }
   }
   else if (overVerticalThreshold || overVelocityYThreshold) {
     NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
-      [self goToViewController:_visibleViewController.topViewController];
+      [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical];
     }
     else if (direction == MSPanDirectionDown) {
       NSLog(@"goto bottom controller");
-      [self goToViewController:_visibleViewController.bottomViewController];
+      [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical];
     }
   }
   else {
     NSLog(@"go to original view controller");
-    [self goToViewController:_visibleViewController];
+    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone];
   }
 }
 
-- (void)goToViewController:(UIViewController *)newController
+- (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way
 {
-  [UIView animateWithDuration:0.5 animations:^{
-    NSLog(@"old frame %@", self.view);
+  NSTimeInterval velocityAnimation = INT_MAX;
+  if (way == MSPanWayHorizontal) {
+    CGFloat points = fabsf(_visibleViewController.view.frame.size.width - (CGFloat)fabs(translation.x));
+    CGFloat panVelocity = fabsf(velocity.x);
+    if (panVelocity > 0) {
+      velocityAnimation = points / panVelocity;
+    }
+  }
+  else {
+    CGFloat points = fabsf(translation.y);
+    CGFloat panVelocity = fabsf(_visibleViewController.view.frame.size.height - (CGFloat)fabs(velocity.y));
+    if (panVelocity > 0) {
+      velocityAnimation = points / panVelocity;
+    }
+  }
+  NSLog(@"velocity %f", velocityAnimation);
+  velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
+  NSLog(@"velocity %f", velocityAnimation);
+
+  [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;
     frameForVisibleViewController.origin.x = -newController.view.frame.origin.x;
     frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
     self.view.frame = frameForVisibleViewController;
-    NSLog(@"new frame %@", self.view);
+
+    if (_visibleViewController != newController) {
+      _visibleViewController.view.alpha = alphaHiddenControllers;
+      newController.view.alpha = 1.0;
+    }
+    else {
+      _visibleViewController.view.alpha = 1.0;
+    }
   }                completion:^(BOOL finished) {
     if (finished) {
       _visibleViewController = newController;
-      NSLog(@"visible view controller changed %@", _visibleViewController.view);
+      [_delegate didMoveToViewController:newController atPosition:newController.position];
     }
   }];
 }
