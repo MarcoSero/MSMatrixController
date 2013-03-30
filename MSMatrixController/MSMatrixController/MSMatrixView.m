@@ -5,10 +5,10 @@
 //
 
 
-#import "MSCartesianView.h"
+#import "MSMatrixView.h"
 
 
-@implementation MSCartesianView
+@implementation MSMatrixView
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {

@@ -7,21 +7,21 @@
 
 #import <Foundation/Foundation.h>
 
-@class MSCartesianMasterViewController;
+@class MSMatrixMasterViewController;
 
 typedef struct {
   int row;
   int col;
 } Position;
 
-@interface UIViewController (MSCartesianViewController)
+@interface UIViewController (MSMatrixController)
 
 @property (assign, nonatomic) NSInteger row;
 @property (assign, nonatomic) NSInteger col;
 
 @property (assign, readonly, nonatomic) Position position;
 
-@property (weak, nonatomic) MSCartesianMasterViewController *masterViewController;
+@property (weak, nonatomic) MSMatrixMasterViewController *masterViewController;
 @property (weak, nonatomic) UIViewController *leftViewController;
 @property (weak, nonatomic) UIViewController *rightViewController;
 @property (weak, nonatomic) UIViewController *topViewController;

@@ -8,5 +8,5 @@
 #import <Foundation/Foundation.h>
 
 
-@interface MSCartesianView : UIView
+@interface MSMatrixView : UIView
 @end

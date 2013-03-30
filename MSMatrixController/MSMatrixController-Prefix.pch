@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'MSCartesianViewController' target in the 'MSCartesianViewController' project
+// Prefix header for all source files of the 'MSMatrixController' target in the 'MSMatrixController' project
 //
 
 #import <Availability.h>

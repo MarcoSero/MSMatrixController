@@ -5,8 +5,8 @@
 //
 
 
-#import "UIViewController+MSCartesianViewController.h"
-#import "MSCartesianMasterViewController.h"
+#import "UIViewController+MSMatrixController.h"
+#import "MSMatrixMasterViewController.h"
 #import <objc/runtime.h>
 
 static char kRow;
@@ -18,7 +18,7 @@ static char kRightViewController;
 static char kTopViewController;
 static char kBottomViewController;
 
-@implementation UIViewController (MSCartesianViewController)
+@implementation UIViewController (MSMatrixController)
 
 #pragma mark - Setters
 
@@ -90,7 +90,7 @@ static char kBottomViewController;
   return p;
 }
 
-- (MSCartesianMasterViewController *)masterViewController
+- (MSMatrixMasterViewController *)masterViewController
 {
   return objc_getAssociatedObject(self, &kMasterViewController);
 }
