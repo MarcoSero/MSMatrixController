@@ -46,9 +46,9 @@ static char kBottomViewController;
   objc_setAssociatedObject(self, &kPosition, valuePosition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)setMasterViewController:(UIViewController *)masterViewController
+- (void)setMatrixViewController:(UIViewController *)matrixViewController
 {
-  objc_setAssociatedObject(self, &kMasterViewController, masterViewController, OBJC_ASSOCIATION_ASSIGN);
+  objc_setAssociatedObject(self, &kMasterViewController, matrixViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (void)setLeftViewController:(UIViewController *)leftViewController
@@ -90,7 +90,7 @@ static char kBottomViewController;
   return p;
 }
 
-- (MSMatrixMasterViewController *)masterViewController
+- (MSMatrixMasterViewController *)matrixViewController
 {
   return objc_getAssociatedObject(self, &kMasterViewController);
 }

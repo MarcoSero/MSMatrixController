@@ -21,7 +21,7 @@ typedef struct {
 
 @property (assign, readonly, nonatomic) Position position;
 
-@property (weak, nonatomic) MSMatrixMasterViewController *masterViewController;
+@property (weak, nonatomic) MSMatrixMasterViewController *matrixViewController;
 @property (weak, nonatomic) UIViewController *leftViewController;
 @property (weak, nonatomic) UIViewController *rightViewController;
 @property (weak, nonatomic) UIViewController *topViewController;

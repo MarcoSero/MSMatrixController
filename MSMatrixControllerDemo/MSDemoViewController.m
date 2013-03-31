@@ -29,22 +29,22 @@
 
 - (IBAction)goLeft:(id)sender
 {
-  [self.masterViewController moveLeftAnimated:NO];
+  [self.matrixViewController moveLeftAnimated:NO];
 }
 
 - (IBAction)goRight:(id)sender
 {
-  [self.masterViewController moveRightAnimated:NO];
+  [self.matrixViewController moveRightAnimated:NO];
 }
 
 - (IBAction)goUp:(id)sender
 {
-  [self.masterViewController moveUpAnimated:NO];
+  [self.matrixViewController moveUpAnimated:NO];
 }
 
 - (IBAction)goDown:(id)sender
 {
-  [self.masterViewController moveDownAnimated:NO];
+  [self.matrixViewController moveDownAnimated:NO];
 }
 
 @end

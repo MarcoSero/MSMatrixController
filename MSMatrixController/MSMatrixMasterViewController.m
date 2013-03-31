@@ -68,7 +68,7 @@
   self.view.frame = frame;
 
   for (UIViewController *child in _viewControllers) {
-    child.masterViewController = self;
+    child.matrixViewController = self;
     [self addChildViewController:child];
     [self.view addSubview:child.view];
     [child didMoveToParentViewController:self];
