@@ -109,7 +109,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="59L-8x-NeB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="546" y="-561"/>
+            <point key="canvasLocation" x="666" y="-341"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="MqS-9e-PJC">
@@ -203,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I3B-3M-0zX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-561"/>
+            <point key="canvasLocation" x="1046" y="-341"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="5Z0-Ss-syj">
@@ -297,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5HX-Nk-jIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="108"/>
+            <point key="canvasLocation" x="1046" y="328"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="PVV-ZW-5oc">
@@ -391,7 +391,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q4o-Q9-hDo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1310" y="108"/>
+            <point key="canvasLocation" x="1430" y="328"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="e58-Ea-cgo">
@@ -485,7 +485,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U6h-3A-Epa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="800"/>
+            <point key="canvasLocation" x="1046" y="1020"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="ysf-zM-xLV">
@@ -579,7 +579,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mii-sg-Ut1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1310" y="800"/>
+            <point key="canvasLocation" x="1430" y="1020"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="vQ2-CK-AMg">
@@ -673,7 +673,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ync-Lv-m51" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="108"/>
+            <point key="canvasLocation" x="2258" y="328"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="x7T-9h-9Y4">
@@ -767,7 +767,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yss-hh-gSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2138" y="800"/>
+            <point key="canvasLocation" x="2258" y="1020"/>
         </scene>
         <!--Demo View Controller-->
         <scene sceneID="Sdx-x8-Q28">
@@ -861,7 +861,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kgb-ua-xr0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="800"/>
+            <point key="canvasLocation" x="1838" y="1020"/>
         </scene>
     </scenes>
     <resources>
@@ -874,10 +874,7 @@
         <class className="MSDemoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSDemoViewController.h"/>
             <relationships>
-                <relationship kind="action" name="goDown:"/>
                 <relationship kind="action" name="goLeft:"/>
-                <relationship kind="action" name="goRight:"/>
-                <relationship kind="action" name="goUp:"/>
                 <relationship kind="outlet" name="goDownButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="goLeftButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="goRightButton" candidateClass="UIButton"/>

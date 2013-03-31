@@ -54,9 +54,9 @@
   position14ViewController.row = 1;
   position14ViewController.col = 4;
 
-  NSArray *children = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
+  NSArray *controllers = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
     position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
-  [cartesianMasterViewController setControllers:children];
+  [cartesianMasterViewController setControllers:controllers];
 
   self.window.rootViewController = cartesianMasterViewController;
   [self.window makeKeyAndVisible];
