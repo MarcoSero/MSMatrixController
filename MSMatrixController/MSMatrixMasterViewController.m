@@ -8,7 +8,7 @@
 #import "MSMatrixView.h"
 #import "MSPanGestureRecognizer.h"
 
-#define alphaHiddenControllers 0.4
+#define alphaHiddenControllers 0.0
 
 @interface MSMatrixMasterViewController ()
 @property(strong, nonatomic) MSPanGestureRecognizer *panGestureRecognizer;
