@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Marco Sero. All rights reserved.
 //
 
-#ifndef MSMatrixControllerDemo_MSMatrixViewController_h
-#define MSMatrixControllerDemo_MSMatrixViewController_h
+#ifndef MSMatrixViewController_h
+#define MSMatrixViewController_h
 
 #import "MSMatrixMasterViewController.h"
 #import "UIViewController+MSMatrixController.h"
