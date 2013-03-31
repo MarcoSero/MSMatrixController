@@ -394,6 +394,100 @@
             <point key="canvasLocation" x="1310" y="108"/>
         </scene>
         <!--Demo View Controller-->
+        <scene sceneID="e58-Ea-cgo">
+            <objects>
+                <viewController storyboardIdentifier="position21" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jwZ-Iw-xbH" customClass="MSDemoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GpN-KE-w7U">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2, 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vhH-4x-7vm">
+                                <rect key="frame" x="146" y="262" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Gzs-Su-xDQ">
+                                <rect key="frame" x="140" y="488" width="40" height="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="Arrow-Down.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goDown:" destination="jwZ-Iw-xbH" eventType="touchUpInside" id="Iak-04-tJb"/>
+                                    <action selector="goDown:" destination="5Zr-jP-H5p" eventType="touchUpInside" id="PbA-kG-Jvr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TLx-fa-J0r">
+                                <rect key="frame" x="20" y="253" width="40" height="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="Arrow-Left.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goLeft:" destination="jwZ-Iw-xbH" eventType="touchUpInside" id="LDd-oy-xdw"/>
+                                    <action selector="goLeft:" destination="5Zr-jP-H5p" eventType="touchUpInside" id="TQi-jN-Afg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cwg-As-lr8">
+                                <rect key="frame" x="260" y="254" width="40" height="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="Arrow-Right.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goRight:" destination="5Zr-jP-H5p" eventType="touchUpInside" id="33C-Rf-d8n"/>
+                                    <action selector="goRight:" destination="jwZ-Iw-xbH" eventType="touchUpInside" id="Xxw-me-Ej9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BYK-aN-BN0">
+                                <rect key="frame" x="140" y="20" width="40" height="40"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" backgroundImage="Arrow-Up.png">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goUp:" destination="jwZ-Iw-xbH" eventType="touchUpInside" id="hWO-4w-iib"/>
+                                    <action selector="goUp:" destination="5Zr-jP-H5p" eventType="touchUpInside" id="wQk-pI-csj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.49737237036219606" blue="0.32355529197318622" alpha="1" colorSpace="calibratedRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <connections>
+                        <outlet property="goDownButton" destination="Gzs-Su-xDQ" id="8pS-Lb-DuA"/>
+                        <outlet property="goLeftButton" destination="TLx-fa-J0r" id="EcR-s6-Ax8"/>
+                        <outlet property="goRightButton" destination="Cwg-As-lr8" id="GUE-01-EAb"/>
+                        <outlet property="goUpButton" destination="BYK-aN-BN0" id="2Av-l9-HGj"/>
+                        <outlet property="view" destination="GpN-KE-w7U" id="Rnw-dP-bh6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U6h-3A-Epa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="800"/>
+        </scene>
+        <!--Demo View Controller-->
         <scene sceneID="ysf-zM-xLV">
             <objects>
                 <viewController storyboardIdentifier="position22" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GWP-4Z-avM" customClass="MSDemoViewController" sceneMemberID="viewController">
@@ -780,6 +874,10 @@
         <class className="MSDemoViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MSDemoViewController.h"/>
             <relationships>
+                <relationship kind="action" name="goDown:"/>
+                <relationship kind="action" name="goLeft:"/>
+                <relationship kind="action" name="goRight:"/>
+                <relationship kind="action" name="goUp:"/>
                 <relationship kind="outlet" name="goDownButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="goLeftButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="goRightButton" candidateClass="UIButton"/>
