@@ -84,23 +84,47 @@
 
 - (void)moveLeftAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.leftViewController way:MSPanWayHorizontal animated:animated];
+  [self moveLeftAnimated:animated withCompletion:nil];
 }
 
 - (void)moveRightAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal animated:animated];
+  [self moveRightAnimated:animated withCompletion:nil];
 }
 
 - (void)moveUpAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical animated:animated];
+  [self moveUpAnimated:animated withCompletion:nil];
 }
 
 - (void)moveDownAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical animated:animated];
+  [self moveDownAnimated:animated withCompletion:nil];
 }
+
+- (void)moveLeftAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
+{
+  [self goToViewController:_visibleViewController.leftViewController way:MSPanWayHorizontal animated:animated completion:completion];
+}
+
+- (void)moveRightAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
+{
+  [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal animated:animated completion:completion];
+
+}
+
+- (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
+{
+  [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical animated:animated completion:completion];
+
+}
+
+- (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
+{
+  [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical animated:animated completion:completion];
+
+}
+
 
 #pragma mark - Private methods
 
@@ -211,19 +235,22 @@
 
 
   if (!nextControllerExists) {
-    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
+    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES completion:^{
+    }];
     return;
   }
 
   if (way == MSPanWayHorizontal && way == _lastPanningWay && (overHorizontalThreshold || overVelocityXThreshold)) {
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
-      [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
+      [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES completion:^{
+      }];
       return;
     }
     else if (direction == MSPanDirectionRight) {
       NSLog(@"goto right controller");
-      [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
+      [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES completion:^{
+      }];
       return;
     }
   }
@@ -231,27 +258,30 @@
     NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
-      [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
+      [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES completion:^{
+      }];
       return;
     }
     else if (direction == MSPanDirectionDown) {
       NSLog(@"goto bottom controller");
-      [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
+      [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES completion:^{
+      }];
       return;
     }
   }
 
   NSLog(@"go to original view controller");
-  [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
+  [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES completion:^{
+  }];
 
 }
 
-- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
 {
-  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated];
+  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated completion:completion];
 }
 
-- (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated
+- (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
 {
   NSTimeInterval velocityAnimation = INT_MAX;
   if (!animated) {
@@ -306,6 +336,10 @@
 
       _visibleViewController = newController;
       [_delegate didMoveToViewController:newController atPosition:newController.position];
+
+      if (completion) {
+        completion();
+      }
     }
   }];
 }

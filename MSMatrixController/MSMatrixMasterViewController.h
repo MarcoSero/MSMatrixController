@@ -31,4 +31,12 @@
 
 - (void)moveDownAnimated:(BOOL)animated;
 
+- (void)moveLeftAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+
+- (void)moveRightAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+
+- (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+
+- (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+
 @end
