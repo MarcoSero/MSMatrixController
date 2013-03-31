@@ -29,15 +29,15 @@
   return nil;
 }
 
-- (void)setControllers:(NSArray *)children
+- (void)setControllers:(NSArray *)controllers
 {
-  _childrenViewControllers = children;
+  _viewControllers = controllers;
 
   NSInteger maxRows = 0;
   NSInteger maxCols = 0;
   CGFloat screenWidth = self.view.frame.size.width;
   CGFloat screenHeight = self.view.frame.size.height;
-  for (UIViewController *child in _childrenViewControllers) {
+  for (UIViewController *child in _viewControllers) {
 
     maxRows = MAX(maxRows, child.row);
     maxCols = MAX(maxCols, child.col);
@@ -67,7 +67,7 @@
   frame.size = contentSize;
   self.view.frame = frame;
 
-  for (UIViewController *child in _childrenViewControllers) {
+  for (UIViewController *child in _viewControllers) {
     child.masterViewController = self;
     [self addChildViewController:child];
     [self.view addSubview:child.view];
@@ -77,7 +77,7 @@
   _panGestureRecognizer = [[MSPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
   [self.view addGestureRecognizer:_panGestureRecognizer];
 
-  _visibleViewController = [_childrenViewControllers objectAtIndex:0];
+  _visibleViewController = [_viewControllers objectAtIndex:0];
 }
 
 #pragma mark - Public methods
@@ -107,7 +107,7 @@
 - (UIViewController *)getControllerAtPosition:(Position)position
 {
   NSPredicate *positionPredicate = [NSPredicate predicateWithFormat:@"row == %d AND col == %d", position.row, position.col];
-  NSArray *viewControllersWithMatchedPosition = [_childrenViewControllers filteredArrayUsingPredicate:positionPredicate];
+  NSArray *viewControllersWithMatchedPosition = [_viewControllers filteredArrayUsingPredicate:positionPredicate];
   if (viewControllersWithMatchedPosition.count == 0) {
     return nil;
   }

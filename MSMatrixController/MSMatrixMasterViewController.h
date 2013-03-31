@@ -17,11 +17,11 @@
 
 @property(weak, nonatomic) id <MSMatrixControllerDelegate> delegate;
 @property(weak, readonly, nonatomic) UIViewController *visibleViewController;
-@property(strong, readonly, nonatomic) NSArray *childrenViewControllers;
+@property(strong, readonly, nonatomic) NSArray *viewControllers;
 
 - (id)initWithFrame:(CGRect)frame;
 
-- (void)setControllers:(NSArray *)children;
+- (void)setControllers:(NSArray *)controllers;
 
 - (void)moveLeftAnimated:(BOOL)animated;
 
