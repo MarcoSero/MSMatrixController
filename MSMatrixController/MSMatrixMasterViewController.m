@@ -215,10 +215,7 @@
     return;
   }
 
-  NSLog(@"velocity x %f y %f", velocity.x, velocity.y);
-
-  if (way == _lastPanningWay && (overHorizontalThreshold || overVelocityXThreshold)) {
-    NSLog(@"X axis");
+  if (way == MSPanWayHorizontal && way == _lastPanningWay && (overHorizontalThreshold || overVelocityXThreshold)) {
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
       [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
@@ -230,7 +227,7 @@
       return;
     }
   }
-  else if (way == _lastPanningWay && (overVerticalThreshold || overVelocityYThreshold)) {
+  else if (way == MSPanWayVertical && way == _lastPanningWay && (overVerticalThreshold || overVelocityYThreshold)) {
     NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
