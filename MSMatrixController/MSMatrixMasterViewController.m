@@ -14,6 +14,7 @@
 @property(strong, nonatomic) MSPanGestureRecognizer *panGestureRecognizer;
 @property(assign, nonatomic) CGPoint positionBeforePan;
 @property(assign, nonatomic) MSPanWay lastPanningWay;
+@property(weak, nonatomic) UIViewController *destinationControllerWhenGestureHasStarted;
 @end
 
 @implementation MSMatrixMasterViewController
@@ -118,12 +119,29 @@
   if (pan.state == UIGestureRecognizerStateBegan) {
     _positionBeforePan = self.view.frame.origin;
     _lastPanningWay = pan.way;
+    [self setDestinationControllerWithDirection:pan.direction];
   }
   else if (pan.state == UIGestureRecognizerStateChanged) {
     [self handlePanWithDirection:pan.direction way:pan.way velocity:[pan velocityInView:self.view] translation:[pan translationInView:self.view]];
   }
   else if (pan.state == UIGestureRecognizerStateEnded) {
     [self handleEndedPanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
+  }
+}
+
+- (void)setDestinationControllerWithDirection:(MSPanDirection)direction
+{
+  if (direction == MSPanDirectionLeft) {
+    _destinationControllerWhenGestureHasStarted = _visibleViewController.leftViewController;
+  }
+  else if (direction == MSPanDirectionRight) {
+    _destinationControllerWhenGestureHasStarted = _visibleViewController.rightViewController;
+  }
+  else if (direction == MSPanDirectionUp) {
+    _destinationControllerWhenGestureHasStarted = _visibleViewController.topViewController;
+  }
+  else if (direction == MSPanDirectionDown) {
+    _destinationControllerWhenGestureHasStarted = _visibleViewController.bottomViewController;
   }
 }
 
@@ -150,32 +168,20 @@
   frame.origin = newOrigin;
   self.view.frame = frame;
 
-  // TODO: change alpha value
-  UIViewController *destinationViewController;
   CGFloat movedPoints = 0;
   CGFloat totalPoints = 0;
-  if (direction == MSPanDirectionLeft) {
+
+  if (way == MSPanWayHorizontal) {
     totalPoints = _visibleViewController.view.frame.size.width;
     movedPoints = fabsf(translation.x);
-    destinationViewController = _visibleViewController.leftViewController;
   }
-  else if (direction == MSPanDirectionRight) {
-    totalPoints = _visibleViewController.view.frame.size.width;
-    movedPoints = fabsf(translation.x);
-    destinationViewController = _visibleViewController.rightViewController;
-  }
-  else if (direction == MSPanDirectionUp) {
+  else if (way == MSPanWayVertical) {
     totalPoints = _visibleViewController.view.frame.size.height;
     movedPoints = fabsf(translation.y);
-    destinationViewController = _visibleViewController.topViewController;
   }
-  else if (direction == MSPanDirectionDown) {
-    totalPoints = _visibleViewController.view.frame.size.height;
-    movedPoints = fabsf(translation.y);
-    destinationViewController = _visibleViewController.bottomViewController;
-  }
+
   float alphaValue = movedPoints / totalPoints;
-  destinationViewController.view.alpha = alphaHiddenControllers + alphaValue;
+  _destinationControllerWhenGestureHasStarted.view.alpha = alphaHiddenControllers + alphaValue;
   _visibleViewController.view.alpha = alphaHiddenControllers + fabsf(1 - alphaValue);
 }
 
@@ -263,9 +269,7 @@
           velocityAnimation = points / panVelocity;
         }
       }
-      NSLog(@"velocity %f", velocityAnimation);
       velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
-      NSLog(@"velocity %f", velocityAnimation);
     }
   }
 
