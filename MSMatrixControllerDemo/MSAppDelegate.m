@@ -34,8 +34,25 @@
   position12ViewController.row = 1;
   position12ViewController.col = 2;
 
-  NSArray *children = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController];
-  [cartesianMasterViewController setChildren:children];
+  UIViewController *position22ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position22"];
+  position22ViewController.row = 2;
+  position22ViewController.col = 2;
+
+  UIViewController *position23ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position23"];
+  position23ViewController.row = 2;
+  position23ViewController.col = 3;
+
+  UIViewController *position24ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position24"];
+  position24ViewController.row = 2;
+  position24ViewController.col = 4;
+
+  UIViewController *position14ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position14"];
+  position14ViewController.row = 1;
+  position14ViewController.col = 4;
+
+  NSArray *children = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
+    position22ViewController, position23ViewController, position24ViewController, position14ViewController];
+  [cartesianMasterViewController setControllers:children];
 
   self.window.rootViewController = cartesianMasterViewController;
   [self.window makeKeyAndVisible];

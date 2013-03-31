@@ -21,30 +21,30 @@
 
 - (void)viewDidLoad
 {
-  _goLeftButton.enabled = (BOOL)self.leftViewController;
-  _goRightButton.enabled = (BOOL)self.rightViewController;
-  _goUpButton.enabled = (BOOL)self.topViewController;
-  _goDownButton.enabled = (BOOL)self.bottomViewController;
+  _goLeftButton.hidden = !(BOOL)self.leftViewController;
+  _goRightButton.hidden = !(BOOL)self.rightViewController;
+  _goUpButton.hidden = !(BOOL)self.topViewController;
+  _goDownButton.hidden = !(BOOL)self.bottomViewController;
 }
 
 - (IBAction)goLeft:(id)sender
 {
-  [self.masterViewController goLeft];
+  [self.masterViewController moveLeftAnimated:NO];
 }
 
 - (IBAction)goRight:(id)sender
 {
-  [self.masterViewController goRight];
+  [self.masterViewController moveRightAnimated:NO];
 }
 
 - (IBAction)goUp:(id)sender
 {
-  [self.masterViewController goUp];
+  [self.masterViewController moveUpAnimated:NO];
 }
 
 - (IBAction)goDown:(id)sender
 {
-  [self.masterViewController goDown];
+  [self.masterViewController moveDownAnimated:NO];
 }
 
 @end

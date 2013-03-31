@@ -4,7 +4,6 @@
 //
 //
 
-#import <CoreGraphics/CoreGraphics.h>
 #import "MSMatrixMasterViewController.h"
 #import "MSMatrixView.h"
 #import "MSPanGestureRecognizer.h"
@@ -29,7 +28,7 @@
   return nil;
 }
 
-- (void)setChildren:(NSArray *)children
+- (void)setControllers:(NSArray *)children
 {
   _childrenViewControllers = children;
 
@@ -82,24 +81,24 @@
 
 #pragma mark - Public methods
 
-- (void)goLeft
+- (void)moveLeftAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.leftViewController way:MSPanWayHorizontal];
+  [self goToViewController:_visibleViewController.leftViewController way:MSPanWayHorizontal animated:animated];
 }
 
-- (void)goRight
+- (void)moveRightAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal];
+  [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal animated:animated];
 }
 
-- (void)goUp
+- (void)moveUpAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical];
+  [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical animated:animated];
 }
 
-- (void)goDown
+- (void)moveDownAnimated:(BOOL)animated
 {
-  [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical];
+  [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical animated:animated];
 }
 
 #pragma mark - Private methods
@@ -199,7 +198,7 @@
 
 
   if (!nextControllerExists) {
-    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone];
+    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
     return;
   }
 
@@ -209,62 +208,67 @@
     NSLog(@"X axis");
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
-      [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal];
+      [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
     }
     else if (direction == MSPanDirectionRight) {
       NSLog(@"goto right controller");
-      [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal];
+      [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
     }
   }
   else if (overVerticalThreshold || overVelocityYThreshold) {
     NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
-      [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical];
+      [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
     }
     else if (direction == MSPanDirectionDown) {
       NSLog(@"goto bottom controller");
-      [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical];
+      [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
     }
   }
   else {
     NSLog(@"go to original view controller");
-    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone];
+    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
   }
 }
 
-- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated
 {
-  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way];
+  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated];
 }
 
-- (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way
+- (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated
 {
   NSTimeInterval velocityAnimation = INT_MAX;
-
-  if (translation.x == 0 && translation.y == 0 && velocity.x == 0 && velocity.y == 0) {
-    velocityAnimation = 0.3;
+  if (!animated) {
+    velocityAnimation = 0;
   }
-
   else {
-    if (way == MSPanWayHorizontal) {
-      CGFloat points = fabsf(_visibleViewController.view.frame.size.width - (CGFloat)fabs(translation.x));
-      CGFloat panVelocity = fabsf(velocity.x);
-      if (panVelocity > 0) {
-        velocityAnimation = points / panVelocity;
-      }
+    if (translation.x == 0 && translation.y == 0 && velocity.x == 0 && velocity.y == 0) {
+      velocityAnimation = 0.3;
     }
+
     else {
-      CGFloat points = fabsf(translation.y);
-      CGFloat panVelocity = fabsf(_visibleViewController.view.frame.size.height - (CGFloat)fabs(velocity.y));
-      if (panVelocity > 0) {
-        velocityAnimation = points / panVelocity;
+      if (way == MSPanWayHorizontal) {
+        CGFloat points = fabsf(_visibleViewController.view.frame.size.width - (CGFloat)fabs(translation.x));
+        CGFloat panVelocity = fabsf(velocity.x);
+        if (panVelocity > 0) {
+          velocityAnimation = points / panVelocity;
+        }
       }
+      else {
+        CGFloat points = fabsf(translation.y);
+        CGFloat panVelocity = fabsf(_visibleViewController.view.frame.size.height - (CGFloat)fabs(velocity.y));
+        if (panVelocity > 0) {
+          velocityAnimation = points / panVelocity;
+        }
+      }
+      NSLog(@"velocity %f", velocityAnimation);
+      velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
+      NSLog(@"velocity %f", velocityAnimation);
     }
-    NSLog(@"velocity %f", velocityAnimation);
-    velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
-    NSLog(@"velocity %f", velocityAnimation);
   }
+
 
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;

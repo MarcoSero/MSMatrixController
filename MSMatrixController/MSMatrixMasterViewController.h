@@ -15,16 +15,20 @@
 
 @interface MSMatrixMasterViewController : UIViewController
 
-@property (weak, nonatomic) id<MSMatrixControllerDelegate> delegate;
-@property (weak, readonly, nonatomic) UIViewController *visibleViewController;
-@property (strong, readonly, nonatomic) NSArray *childrenViewControllers;
+@property(weak, nonatomic) id <MSMatrixControllerDelegate> delegate;
+@property(weak, readonly, nonatomic) UIViewController *visibleViewController;
+@property(strong, readonly, nonatomic) NSArray *childrenViewControllers;
 
 - (id)initWithFrame:(CGRect)frame;
-- (void)setChildren:(NSArray *)children;
 
-- (void)goLeft;
-- (void)goRight;
-- (void)goUp;
-- (void)goDown;
+- (void)setControllers:(NSArray *)children;
+
+- (void)moveLeftAnimated:(BOOL)animated;
+
+- (void)moveRightAnimated:(BOOL)animated;
+
+- (void)moveUpAnimated:(BOOL)animated;
+
+- (void)moveDownAnimated:(BOOL)animated;
 
 @end
