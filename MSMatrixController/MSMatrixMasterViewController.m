@@ -273,6 +273,9 @@
     }
   }
 
+  // call UIKit view callbacks. not sure it's right
+  [_visibleViewController viewWillDisappear:animated];
+  [newController viewWillAppear:animated];
 
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;
@@ -289,6 +292,10 @@
     }
   }                completion:^(BOOL finished) {
     if (finished) {
+      // call UIKit view callbacks. not sure it's right
+      [_visibleViewController viewDidDisappear:animated];
+      [newController viewDidAppear:animated];
+
       _visibleViewController = newController;
       [_delegate didMoveToViewController:newController atPosition:newController.position];
     }
