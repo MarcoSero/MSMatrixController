@@ -1,5 +1,7 @@
 # MSMatrixController
-A controller to organize you view controllers in a matrix, and navigate between them via gestures.
+A component to organize your view controllers in a matrix, and navigate between them via gestures (or programmatically).
+
+![image](./animated_matrix.gif)
 
 ## How it works
 
@@ -14,7 +16,7 @@ Organize your view controllers inside a Matrix, specifying for each of them its 
       UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
 
       UIViewController *initialViewController = self.window.rootViewController;
-      MSMatrixMasterViewController *cartesianMasterViewController = [[MSMatrixMasterViewController alloc] initWithFrame:initialViewController.view.frame];
+      MSMatrixMasterViewController *matrixMasterViewController = [[MSMatrixMasterViewController alloc] initWithFrame:initialViewController.view.frame];
 
       UIViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
       position00ViewController.row = 0;
@@ -29,13 +31,14 @@ Organize your view controllers inside a Matrix, specifying for each of them its 
       NSArray *controllers = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
     position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
     
-      [cartesianMasterViewController setControllers:controllers];
+      [matrixMasterViewController setControllers:controllers];
 
       self.window.rootViewController = cartesianMasterViewController;
       [self.window makeKeyAndVisible];
       return YES;
     }
-    
+
+## Features  
     
 For each controller, you can access its neighborhood:
 
@@ -50,3 +53,21 @@ The default way to navigate the matrix of controllers is with swipe gestures, bu
     - (void)moveRightAnimated:(BOOL)animated;
     - (void)moveUpAnimated:(BOOL)animated;
     - (void)moveDownAnimated:(BOOL)animated;
+    - (void)moveLeftAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+    - (void)moveRightAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+    - (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+    - (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+ 
+## Callbacks and MSMatrixControllerDelegate
+
+At this moment, MSMatrixController does use the default UIKit callbacks when a view appears/disappears:
+
+    - (void)viewDidAppear:(BOOL)animated;    
+    - (void)viewDidDisappear:(BOOL)animated;
+
+Also, it declares the delegate `MSMatrixControllerDelegate`:
+
+    - (void)willMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
+    - (void)didMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
+
+
