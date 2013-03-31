@@ -1,7 +1,7 @@
 # MSMatrixController
-A component to organize your view controllers in a matrix, and navigate between them via gestures (or programmatically).
+A component to organize your view controllers in a gesture-based a 2D matrix.
 
-![image](./animated_matrix.gif)
+![image](MSMatrixControllerDemo/animated_matrix.gif)
 
 ## How it works
 
@@ -9,7 +9,7 @@ Import `MSMatrixController.h` inside your prefix or application delegate.
 
 Organize your view controllers inside a Matrix, specifying for each of them its row and its column. Then add them inside an instance of MSMatrixController.
 
-![image](./matrix.jpg)
+![image](MSMatrixControllerDemo/matrix.jpg)
 
     - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     {
@@ -47,6 +47,10 @@ For each controller, you can access its neighborhood:
     controller.topViewController
     controller.bottomViewController
     
+and the matrix master controller:
+
+    controller.matrixViewController
+    
 The default way to navigate the matrix of controllers is with swipe gestures, but you can also move through them programmatically.
 
     - (void)moveLeftAnimated:(BOOL)animated;
@@ -70,4 +74,19 @@ Also, it declares the delegate `MSMatrixControllerDelegate`:
     - (void)willMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
     - (void)didMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
 
+## Credits
+
+Freely inspired by [Circle](https://itunes.apple.com/gb/app/circle-whos-around-you/id488720081?mt=8) and [MBSpacialViewController](https://github.com/mobitar/MBSpacialViewController)
+
+## Contact
+
+Marco Sero
+
+- http://www.marcosero.com
+- http://twitter.com/marcosero 
+- marco@marcosero.com
+
+## License
+
+MSMatrixController is available under the MIT license. See the LICENSE file for more info.
 
