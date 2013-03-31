@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad
 {
+  [super viewDidLoad];
   _goLeftButton.hidden = !(BOOL)self.leftViewController;
   _goRightButton.hidden = !(BOOL)self.rightViewController;
   _goUpButton.hidden = !(BOOL)self.topViewController;
@@ -29,22 +30,22 @@
 
 - (IBAction)goLeft:(id)sender
 {
-  [self.matrixViewController moveLeftAnimated:NO];
+  [self.matrixViewController moveLeftAnimated:YES];
 }
 
 - (IBAction)goRight:(id)sender
 {
-  [self.matrixViewController moveRightAnimated:NO];
+  [self.matrixViewController moveRightAnimated:YES];
 }
 
 - (IBAction)goUp:(id)sender
 {
-  [self.matrixViewController moveUpAnimated:NO];
+  [self.matrixViewController moveUpAnimated:YES];
 }
 
 - (IBAction)goDown:(id)sender
 {
-  [self.matrixViewController moveDownAnimated:NO];
+  [self.matrixViewController moveDownAnimated:YES];
 }
 
 @end

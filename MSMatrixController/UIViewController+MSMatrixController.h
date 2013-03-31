@@ -27,5 +27,4 @@ typedef struct {
 @property (weak, nonatomic) UIViewController *topViewController;
 @property (weak, nonatomic) UIViewController *bottomViewController;
 
-
 @end

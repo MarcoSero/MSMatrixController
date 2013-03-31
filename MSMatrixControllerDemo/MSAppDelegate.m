@@ -16,7 +16,7 @@
   UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
 
   UIViewController *initialViewController = self.window.rootViewController;
-  MSMatrixMasterViewController *cartesianMasterViewController = [[MSMatrixMasterViewController alloc] initWithFrame:initialViewController.view.frame];
+  MSMatrixMasterViewController *matrixMasterViewController = [[MSMatrixMasterViewController alloc] initWithFrame:initialViewController.view.frame];
 
   UIViewController *position00ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position00"];
   position00ViewController.row = 0;
@@ -56,9 +56,9 @@
 
   NSArray *controllers = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
     position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
-  [cartesianMasterViewController setControllers:controllers];
+  [matrixMasterViewController setControllers:controllers];
 
-  self.window.rootViewController = cartesianMasterViewController;
+  self.window.rootViewController = matrixMasterViewController;
   [self.window makeKeyAndVisible];
   return YES;
 }
