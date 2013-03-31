@@ -14,7 +14,7 @@
 @property(strong, nonatomic) MSPanGestureRecognizer *panGestureRecognizer;
 @property(assign, nonatomic) CGPoint positionBeforePan;
 @property(assign, nonatomic) MSPanWay lastPanningWay;
-@property(weak, nonatomic) UIViewController *destinationControllerWhenGestureHasStarted;
+@property(strong, nonatomic) NSMutableArray *destinationControllersInWay;
 @end
 
 @implementation MSMatrixMasterViewController
@@ -119,29 +119,34 @@
   if (pan.state == UIGestureRecognizerStateBegan) {
     _positionBeforePan = self.view.frame.origin;
     _lastPanningWay = pan.way;
-    [self setDestinationControllerWithDirection:pan.direction];
+    [self setDestinationControllersWithWay:pan.way];
   }
   else if (pan.state == UIGestureRecognizerStateChanged) {
     [self handlePanWithDirection:pan.direction way:pan.way velocity:[pan velocityInView:self.view] translation:[pan translationInView:self.view]];
   }
   else if (pan.state == UIGestureRecognizerStateEnded) {
-    [self handleEndedPanWithDirection:pan.direction translation:[pan translationInView:self.view] velocity:[pan velocityInView:self.view]];
+    [self handleEndedPanWithDirection:pan.direction way:pan.way velocity:[pan velocityInView:self.view] translation:[pan translationInView:self.view]];
   }
 }
 
-- (void)setDestinationControllerWithDirection:(MSPanDirection)direction
+- (void)setDestinationControllersWithWay:(MSPanWay)way
 {
-  if (direction == MSPanDirectionLeft) {
-    _destinationControllerWhenGestureHasStarted = _visibleViewController.leftViewController;
+  _destinationControllersInWay = [NSMutableArray array];
+  if (way == MSPanWayHorizontal) {
+    if (_visibleViewController.leftViewController) {
+      [_destinationControllersInWay addObject:_visibleViewController.leftViewController];
+    }
+    if (_visibleViewController.rightViewController) {
+      [_destinationControllersInWay addObject:_visibleViewController.rightViewController];
+    }
   }
-  else if (direction == MSPanDirectionRight) {
-    _destinationControllerWhenGestureHasStarted = _visibleViewController.rightViewController;
-  }
-  else if (direction == MSPanDirectionUp) {
-    _destinationControllerWhenGestureHasStarted = _visibleViewController.topViewController;
-  }
-  else if (direction == MSPanDirectionDown) {
-    _destinationControllerWhenGestureHasStarted = _visibleViewController.bottomViewController;
+  else {
+    if (_visibleViewController.topViewController) {
+      [_destinationControllersInWay addObject:_visibleViewController.topViewController];
+    }
+    if (_visibleViewController.bottomViewController) {
+      [_destinationControllersInWay addObject:_visibleViewController.bottomViewController];
+    }
   }
 }
 
@@ -181,11 +186,13 @@
   }
 
   float alphaValue = movedPoints / totalPoints;
-  _destinationControllerWhenGestureHasStarted.view.alpha = alphaHiddenControllers + alphaValue;
   _visibleViewController.view.alpha = alphaHiddenControllers + fabsf(1 - alphaValue);
+  for (UIViewController *destination in _destinationControllersInWay) {
+    destination.view.alpha = alphaHiddenControllers + alphaValue;
+  }
 }
 
-- (void)handleEndedPanWithDirection:(MSPanDirection)direction translation:(CGPoint)translation velocity:(CGPoint)velocity
+- (void)handleEndedPanWithDirection:(MSPanDirection)direction way:(MSPanWay)way velocity:(CGPoint)velocity translation:(CGPoint)translation
 {
   const CGFloat horizontalThreshold = _visibleViewController.view.frame.size.width / 4;
   const CGFloat verticalThreshold = _visibleViewController.view.frame.size.height / 4;
@@ -210,32 +217,36 @@
 
   NSLog(@"velocity x %f y %f", velocity.x, velocity.y);
 
-  if (overHorizontalThreshold || overVelocityXThreshold) {
+  if (way == _lastPanningWay && (overHorizontalThreshold || overVelocityXThreshold)) {
     NSLog(@"X axis");
     if (direction == MSPanDirectionLeft) {
       NSLog(@"goto left controller");
       [self goToViewController:_visibleViewController.leftViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
+      return;
     }
     else if (direction == MSPanDirectionRight) {
       NSLog(@"goto right controller");
       [self goToViewController:_visibleViewController.rightViewController translation:translation velocity:velocity way:MSPanWayHorizontal animated:YES];
+      return;
     }
   }
-  else if (overVerticalThreshold || overVelocityYThreshold) {
+  else if (way == _lastPanningWay && (overVerticalThreshold || overVelocityYThreshold)) {
     NSLog(@"Y axis");
     if (direction == MSPanDirectionUp) {
       NSLog(@"goto top controller");
       [self goToViewController:_visibleViewController.topViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
+      return;
     }
     else if (direction == MSPanDirectionDown) {
       NSLog(@"goto bottom controller");
       [self goToViewController:_visibleViewController.bottomViewController translation:translation velocity:velocity way:MSPanWayVertical animated:YES];
+      return;
     }
   }
-  else {
-    NSLog(@"go to original view controller");
-    [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
-  }
+
+  NSLog(@"go to original view controller");
+  [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES];
+
 }
 
 - (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated
