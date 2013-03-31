@@ -110,23 +110,17 @@
 - (void)moveRightAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
 {
   [self goToViewController:_visibleViewController.rightViewController way:MSPanWayHorizontal animated:animated completion:completion];
-
 }
 
 - (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
 {
   [self goToViewController:_visibleViewController.topViewController way:MSPanWayVertical animated:animated completion:completion];
-
 }
 
 - (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion
 {
   [self goToViewController:_visibleViewController.bottomViewController way:MSPanWayVertical animated:animated completion:completion];
-
 }
-
-
-#pragma mark - Private methods
 
 - (UIViewController *)getControllerAtPosition:(Position)position
 {
@@ -137,6 +131,8 @@
   }
   return [viewControllersWithMatchedPosition objectAtIndex:0];
 }
+
+#pragma mark - Private methods
 
 - (void)panDetected:(MSPanGestureRecognizer *)pan
 {
@@ -283,6 +279,8 @@
 
 - (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
 {
+  [_delegate willMoveToViewController:newController atPosition:newController.position];
+
   NSTimeInterval velocityAnimation = INT_MAX;
   if (!animated) {
     velocityAnimation = 0;
@@ -310,10 +308,6 @@
       velocityAnimation = MAX(0.3, MIN(velocityAnimation, 0.7));
     }
   }
-
-  // call UIKit view callbacks. not sure it's right
-  [_visibleViewController viewWillDisappear:animated];
-  [newController viewWillAppear:animated];
 
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;

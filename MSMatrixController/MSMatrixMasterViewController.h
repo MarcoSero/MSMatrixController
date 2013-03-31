@@ -10,6 +10,7 @@
 
 @protocol MSMatrixControllerDelegate <NSObject>
 @optional
+- (void)willMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
 - (void)didMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
 @end
 
@@ -38,5 +39,7 @@
 - (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
 
 - (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+
+- (UIViewController *)getControllerAtPosition:(Position)position;
 
 @end
