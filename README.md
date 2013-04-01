@@ -9,7 +9,7 @@ Copy the folder `MSMatrixController` inside your Xcode project.
 
 Import `MSMatrixController.h` inside your prefix or application delegate. 
 
-Organize your view controllers inside a Matrix, specifying for each of them its row and its column. Then add them inside an instance of MSMatrixController.
+Organize your view controllers inside a Matrix, specifying for each of them its row and column. Then add them inside an instance of MSMatrixController.
 
 ![image](MSMatrixControllerDemo/matrix.jpg)
 
@@ -53,7 +53,7 @@ and the matrix master controller:
 
     controller.matrixViewController
     
-The default way to navigate the matrix of controllers is with swipe gestures, but you can also move through them programmatically.
+The default way to navigate the matrix of controllers is with swipe gestures, but you can move through them programmatically as well.
 
     - (void)moveLeftAnimated:(BOOL)animated;
     - (void)moveRightAnimated:(BOOL)animated;
