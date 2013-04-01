@@ -86,15 +86,15 @@
 		62DD2D964482E6E4C771FCF7 /* MSMatrixController */ = {
 			isa = PBXGroup;
 			children = (
-				62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */,
-				62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */,
-				62DD28CB3371A35156859330 /* MSMatrixView.m */,
-				62DD245BDB81670306659FFC /* MSMatrixView.h */,
-				62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */,
-				62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */,
-				62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */,
-				62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */,
 				A9FD76F817073C410005AB67 /* MSMatrixController.h */,
+				62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */,
+				62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */,
+				62DD245BDB81670306659FFC /* MSMatrixView.h */,
+				62DD28CB3371A35156859330 /* MSMatrixView.m */,
+				62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */,
+				62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */,
+				62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */,
+				62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */,
 			);
 			name = MSMatrixController;
 			path = ../MSMatrixController;
