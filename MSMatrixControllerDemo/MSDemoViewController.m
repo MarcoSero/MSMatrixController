@@ -19,9 +19,9 @@
 
 @implementation MSDemoViewController
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-  [super viewDidLoad];
+  [super viewDidAppear:animated];
   _goLeftButton.hidden = !(BOOL)self.leftViewController;
   _goRightButton.hidden = !(BOOL)self.rightViewController;
   _goUpButton.hidden = !(BOOL)self.topViewController;
