@@ -1,5 +1,5 @@
 # MSMatrixController
-A component to organize your view controllers in a gesture-based a 2D matrix.
+A component to organize your view controllers in a gesture-based 2D matrix.
 
 ![image](MSMatrixControllerDemo/animated_matrix.gif)
 
