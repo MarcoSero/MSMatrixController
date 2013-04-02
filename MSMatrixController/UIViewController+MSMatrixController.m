@@ -28,7 +28,6 @@
 static char kRow;
 static char kCol;
 static char kPosition;
-static char kMasterViewController;
 static char kLeftViewController;
 static char kRightViewController;
 static char kTopViewController;
@@ -60,11 +59,6 @@ static char kBottomViewController;
 {
   NSValue *valuePosition = [NSValue value:&position withObjCType:@encode(Position)];
   objc_setAssociatedObject(self, &kPosition, valuePosition, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (void)setMatrixViewController:(UIViewController *)matrixViewController
-{
-  objc_setAssociatedObject(self, &kMasterViewController, matrixViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (void)setLeftViewController:(UIViewController *)leftViewController
@@ -108,7 +102,17 @@ static char kBottomViewController;
 
 - (MSMatrixMasterViewController *)matrixViewController
 {
-  return objc_getAssociatedObject(self, &kMasterViewController);
+  UIViewController *iterator = self.parentViewController;
+  while (iterator) {
+    if ([iterator isKindOfClass:[MSMatrixMasterViewController class]]) {
+      return (MSMatrixMasterViewController *)iterator;
+    } else if (iterator.parentViewController && iterator.parentViewController != iterator) {
+      iterator = iterator.parentViewController;
+    } else {
+      iterator = nil;
+    }
+  }
+  return nil;
 }
 
 - (UIViewController *)leftViewController
@@ -130,7 +134,6 @@ static char kBottomViewController;
 {
   return objc_getAssociatedObject(self, &kBottomViewController);
 }
-
 
 
 @end
