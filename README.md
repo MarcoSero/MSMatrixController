@@ -3,11 +3,18 @@ A component to organize your view controllers in a gesture-based 2D matrix.
 
 ![image](MSMatrixControllerDemo/animated_matrix.gif)
 
+## Get it ready
+
+The best way to install it inside your project is with [CocoaPods](http://cocoapods.org/): simply add
+
+    pod 'MSMatrixController'
+
+inside your Podfile.   
+If for some mysterious reason you are not using CocoaPods, copy the folder `MSMatrixController` inside your Xcode project.
+
+Then, import `MSMatrixController.h` inside your prefix or application delegate. 
+
 ## How it works
-
-Copy the folder `MSMatrixController` inside your Xcode project.
-
-Import `MSMatrixController.h` inside your prefix or application delegate. 
 
 Organize your view controllers inside a Matrix, specifying for each of them its row and column. Then add them inside an instance of MSMatrixController.
 
