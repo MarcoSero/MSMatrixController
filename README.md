@@ -42,7 +42,7 @@ Organize your view controllers inside a Matrix, specifying for each of them its 
     
       [matrixMasterViewController setControllers:controllers];
 
-      self.window.rootViewController = cartesianMasterViewController;
+      self.window.rootViewController = matrixMasterViewController;
       [self.window makeKeyAndVisible];
       return YES;
     }
