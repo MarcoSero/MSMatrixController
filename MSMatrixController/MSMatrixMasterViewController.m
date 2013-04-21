@@ -47,55 +47,21 @@
 
 - (void)setControllers:(NSArray *)controllers
 {
-  _viewControllers = controllers;
-
-  NSInteger maxRows = 0;
-  NSInteger maxCols = 0;
-  CGFloat screenWidth = self.view.frame.size.width;
-  CGFloat screenHeight = self.view.frame.size.height;
-  for (UIViewController *child in _viewControllers) {
-
-    maxRows = MAX(maxRows, child.row);
-    maxCols = MAX(maxCols, child.col);
-
-    Position left = child.position;
-    left.col = left.col - 1;
-    Position right = child.position;
-    right.col = right.col + 1;
-    Position top = child.position;
-    top.row = top.row - 1;
-    Position bottom = child.position;
-    bottom.row = bottom.row + 1;
-
-    child.leftViewController = [self getControllerAtPosition:left];
-    child.rightViewController = [self getControllerAtPosition:right];
-    child.topViewController = [self getControllerAtPosition:top];
-    child.bottomViewController = [self getControllerAtPosition:bottom];
-
-    CGRect frameInsideMasterView = child.view.frame;
-    frameInsideMasterView.origin.x = screenWidth * child.col;
-    frameInsideMasterView.origin.y = screenHeight * child.row;
-    child.view.frame = frameInsideMasterView;
-  }
-
-  CGSize contentSize = CGSizeMake(screenWidth * (maxCols + 1), screenHeight * (maxRows + 1));
-  CGRect frame = self.view.frame;
-  frame.size = contentSize;
-  self.view.frame = frame;
-
-  for (UIViewController *child in _viewControllers) {
-    [self addChildViewController:child];
-    [self.view addSubview:child.view];
-    [child didMoveToParentViewController:self];
-  }
-
-  _panGestureRecognizer = [[MSPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
-  [self.view addGestureRecognizer:_panGestureRecognizer];
-
-  _visibleViewController = [_viewControllers objectAtIndex:0];
+  [self setControllers:controllers withFrame:self.view.frame];
 }
 
 #pragma mark - Public methods
+
+- (void)addController:(UIViewController *)controller
+{
+  UIViewController *currentVisibleViewController = _visibleViewController;
+  
+  NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+  [controllers addObject:controller];
+  [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+  
+  _visibleViewController = currentVisibleViewController;
+}
 
 - (void)moveLeftAnimated:(BOOL)animated
 {
@@ -148,6 +114,59 @@
 }
 
 #pragma mark - Private methods
+
+- (void)setControllers:(NSArray *)controllers withFrame:(CGRect)frame
+{
+  _viewControllers = controllers;
+  
+  NSInteger maxRows = 0;
+  NSInteger maxCols = 0;
+  CGFloat screenWidth = frame.size.width;
+  CGFloat screenHeight = frame.size.height;
+  for (UIViewController *child in _viewControllers) {
+    
+    maxRows = MAX(maxRows, child.row);
+    maxCols = MAX(maxCols, child.col);
+    
+    Position left = child.position;
+    left.col = left.col - 1;
+    Position right = child.position;
+    right.col = right.col + 1;
+    Position top = child.position;
+    top.row = top.row - 1;
+    Position bottom = child.position;
+    bottom.row = bottom.row + 1;
+    
+    child.leftViewController = [self getControllerAtPosition:left];
+    child.rightViewController = [self getControllerAtPosition:right];
+    child.topViewController = [self getControllerAtPosition:top];
+    child.bottomViewController = [self getControllerAtPosition:bottom];
+    
+    CGRect frameInsideMasterView = child.view.frame;
+    frameInsideMasterView.origin.x = screenWidth * child.col;
+    frameInsideMasterView.origin.y = screenHeight * child.row;
+    child.view.frame = frameInsideMasterView;
+  }
+  
+  _maxRow = maxRows;
+  _maxCol = maxCols;
+  
+  CGSize contentSize = CGSizeMake(screenWidth * (maxCols + 1), screenHeight * (maxRows + 1));
+  CGRect newFrame = self.view.frame;
+  newFrame.size = contentSize;
+  self.view.frame = newFrame;
+  
+  for (UIViewController *child in _viewControllers) {
+    [self addChildViewController:child];
+    [self.view addSubview:child.view];
+    [child didMoveToParentViewController:self];
+  }
+  
+  _panGestureRecognizer = [[MSPanGestureRecognizer alloc] initWithTarget:self action:@selector(panDetected:)];
+  [self.view addGestureRecognizer:_panGestureRecognizer];
+  
+  _visibleViewController = [_viewControllers objectAtIndex:0];
+}
 
 - (void)panDetected:(MSPanGestureRecognizer *)pan
 {

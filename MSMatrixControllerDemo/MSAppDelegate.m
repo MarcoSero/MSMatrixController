@@ -25,6 +25,10 @@
   UIViewController *position01ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position01"];
   position01ViewController.row = 0;
   position01ViewController.col = 1;
+  
+  UIViewController *position02ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position02"];
+  position02ViewController.row = 0;
+  position02ViewController.col = 2;
 
   UIViewController *position11ViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position11"];
   position11ViewController.row = 1;
@@ -54,7 +58,7 @@
   position14ViewController.row = 1;
   position14ViewController.col = 4;
 
-  NSArray *controllers = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
+  NSArray *controllers = @[position00ViewController, position01ViewController, position02ViewController, position11ViewController, position12ViewController,
     position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
   [matrixMasterViewController setControllers:controllers];
 

@@ -35,10 +35,14 @@
 @property(weak, nonatomic) id <MSMatrixControllerDelegate> delegate;
 @property(weak, readonly, nonatomic) UIViewController *visibleViewController;
 @property(strong, readonly, nonatomic) NSArray *viewControllers;
+@property(assign, readonly, nonatomic) NSInteger maxRow;
+@property(assign, readonly, nonatomic) NSInteger maxCol;
 
 - (id)initWithFrame:(CGRect)frame;
 
 - (void)setControllers:(NSArray *)controllers;
+
+- (void)addController:(UIViewController *)controller;
 
 - (void)moveLeftAnimated:(BOOL)animated;
 
