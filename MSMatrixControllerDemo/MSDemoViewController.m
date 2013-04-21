@@ -48,4 +48,17 @@
   [self.matrixViewController moveDownAnimated:YES];
 }
 
+- (IBAction)addTapped:(id)sender
+{
+  UIStoryboard *currentStoryboard = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
+  UIViewController *newViewController = [currentStoryboard instantiateViewControllerWithIdentifier:@"position02"];
+  newViewController.row = 0;
+  newViewController.col = self.col + 1;
+  [self.matrixViewController addController:newViewController];
+  
+  _goLeftButton.hidden = !(BOOL)self.leftViewController;
+  _goRightButton.hidden = !(BOOL)self.rightViewController;
+  _goUpButton.hidden = !(BOOL)self.topViewController;
+  _goDownButton.hidden = !(BOOL)self.bottomViewController;
+}
 @end
