@@ -34,14 +34,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MSMatrixController.m"; sourceTree = "<group>"; };
-		62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MSMatrixController.h"; sourceTree = "<group>"; };
-		62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMatrixMasterViewController.m; sourceTree = "<group>"; };
-		62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSPanGestureRecognizer.h; sourceTree = "<group>"; };
-		62DD245BDB81670306659FFC /* MSMatrixView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMatrixView.h; sourceTree = "<group>"; };
-		62DD28CB3371A35156859330 /* MSMatrixView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMatrixView.m; sourceTree = "<group>"; };
-		62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMatrixMasterViewController.h; sourceTree = "<group>"; };
-		62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSPanGestureRecognizer.m; sourceTree = "<group>"; };
+		62DD21DB4F5641192FBF9E14 /* UIViewController+MSMatrixController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MSMatrixController.m"; sourceTree = "<group>"; tabWidth = 2; };
+		62DD229715A4484CB2AFFBE8 /* UIViewController+MSMatrixController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MSMatrixController.h"; sourceTree = "<group>"; tabWidth = 2; };
+		62DD22CA6B4F9A9A382FE489 /* MSMatrixMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MSMatrixMasterViewController.m; sourceTree = "<group>"; tabWidth = 2; };
+		62DD23E8159C22400EFB4633 /* MSPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSPanGestureRecognizer.h; sourceTree = "<group>"; tabWidth = 2; };
+		62DD245BDB81670306659FFC /* MSMatrixView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSMatrixView.h; sourceTree = "<group>"; tabWidth = 2; };
+		62DD28CB3371A35156859330 /* MSMatrixView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MSMatrixView.m; sourceTree = "<group>"; tabWidth = 2; };
+		62DD29385AD67654580B8083 /* MSMatrixMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSMatrixMasterViewController.h; sourceTree = "<group>"; tabWidth = 2; };
+		62DD2E9FC1F5A1E4FB45BFFF /* MSPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MSPanGestureRecognizer.m; sourceTree = "<group>"; tabWidth = 2; };
 		A97A5FC8170600640009A57F /* MSMatrixControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MSMatrixControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A97A5FCB170600640009A57F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A97A5FCD170600640009A57F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -49,8 +49,8 @@
 		A97A5FD5170600640009A57F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A97A5FD7170600640009A57F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A97A5FD9170600640009A57F /* MSMatrixControllerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MSMatrixControllerDemo-Info.plist"; sourceTree = "<group>"; };
-		A97A5FDA170600640009A57F /* MSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSAppDelegate.h; sourceTree = "<group>"; };
-		A97A5FDB170600640009A57F /* MSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MSAppDelegate.m; sourceTree = "<group>"; };
+		A97A5FDA170600640009A57F /* MSAppDelegate.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSAppDelegate.h; sourceTree = "<group>"; tabWidth = 2; };
+		A97A5FDB170600640009A57F /* MSAppDelegate.m */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MSAppDelegate.m; sourceTree = "<group>"; tabWidth = 2; };
 		A97A5FDD170600640009A57F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		A97A5FDF170600640009A57F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		A97A5FE1170600640009A57F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -63,10 +63,10 @@
 		A9F3903117075F4300C709D0 /* Arrow-Right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Right@2x.png"; sourceTree = "<group>"; };
 		A9F3903217075F4300C709D0 /* Arrow-Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Up.png"; sourceTree = "<group>"; };
 		A9F3903317075F4300C709D0 /* Arrow-Up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow-Up@2x.png"; sourceTree = "<group>"; };
-		A9FD76F31707394B0005AB67 /* MSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSDemoViewController.h; sourceTree = "<group>"; };
-		A9FD76F41707394B0005AB67 /* MSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSDemoViewController.m; sourceTree = "<group>"; };
+		A9FD76F31707394B0005AB67 /* MSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSDemoViewController.h; sourceTree = "<group>"; tabWidth = 2; };
+		A9FD76F41707394B0005AB67 /* MSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = MSDemoViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		A9FD76F7170739F10005AB67 /* MSMatrixControllerDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MSMatrixControllerDemo-Prefix.pch"; sourceTree = "<group>"; };
-		A9FD76F817073C410005AB67 /* MSMatrixController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSMatrixController.h; sourceTree = "<group>"; };
+		A9FD76F817073C410005AB67 /* MSMatrixController.h */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = MSMatrixController.h; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
