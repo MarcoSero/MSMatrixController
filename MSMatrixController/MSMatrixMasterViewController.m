@@ -52,15 +52,140 @@
 
 #pragma mark - Public methods
 
-- (void)addController:(UIViewController *)controller
+- (void)insertController:(UIViewController *)controller shift:(MSDirection)direction
 {
   UIViewController *currentVisibleViewController = _visibleViewController;
   
   NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+    
+  if (controller.row < 0) {
+    controller.row = 0;
+  }
+  
+  if (controller.col < 0) {
+    controller.col = 0;
+  }
+  
+  switch (direction) {
+    case MSShiftHorizontal: {
+      for (UIViewController *child in controllers) {
+        if ((child.row == controller.row) && (child.col >= controller.col)) {
+          child.col += 1;
+        }
+      }
+      break;
+    }
+    default: {
+      for (UIViewController *child in controllers) {
+        if ((child.col == controller.col) && (child.row >= controller.row)) {
+          child.row += 1;
+        }
+      }
+      break;
+    }
+  }
+  
   [controllers addObject:controller];
   [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
   
   _visibleViewController = currentVisibleViewController;
+  
+}
+
+- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction
+{
+  
+  UIViewController *rightViewController = controller.rightViewController;
+  UIViewController *leftViewController = controller.leftViewController;
+  UIViewController *topViewController = controller.topViewController;
+  UIViewController *bottomViewController = controller.bottomViewController;
+  
+  NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+  [controllers removeObject:controller];
+  
+  switch (direction) {
+    case MSShiftHorizontal: {
+      
+      if (!leftViewController && !rightViewController) {
+        return;
+      }
+
+      for (UIViewController *child in controllers) {
+        if ((child.row == controller.row) && (child.col >= controller.col)) {
+          child.col -= 1;
+        }
+      }
+      
+      if (rightViewController) {
+        [self moveRightAnimated:YES withCompletion:^{
+          
+          [controller removeFromParentViewController];
+          [controller.view removeFromSuperview];
+          
+          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+          
+          CGRect newFrame = self.view.frame;
+          newFrame.origin.x += [[UIScreen mainScreen] bounds].size.width;
+          self.view.frame = newFrame;
+          
+          _visibleViewController = rightViewController;
+        }];
+      } else {
+        [self moveLeftAnimated:YES withCompletion:^{
+          
+          [controller removeFromParentViewController];
+          [controller.view removeFromSuperview];
+          
+          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+          
+          _visibleViewController = leftViewController;
+        }];
+      }
+      break;
+    }
+    case MSShiftVertical: {
+      
+      if (!topViewController && !bottomViewController) {
+        return;
+      }
+
+      for (UIViewController *child in controllers) {
+        if ((child.col == controller.col) && (child.row >= controller.row)) {
+          child.row -= 1;
+        }
+      }
+      
+      if (bottomViewController) {
+        [self moveDownAnimated:YES withCompletion:^{
+
+          [controller removeFromParentViewController];
+          [controller.view removeFromSuperview];
+
+          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+
+          CGRect newFrame = self.view.frame;
+          newFrame.origin.y += [[UIScreen mainScreen] bounds].size.height;
+          self.view.frame = newFrame;
+
+          _visibleViewController = bottomViewController;
+        }];
+      } else {
+        [self moveUpAnimated:YES withCompletion:^{
+
+          [controller removeFromParentViewController];
+          [controller.view removeFromSuperview];
+
+          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+
+          _visibleViewController = topViewController;
+        }];
+      }
+      break;
+    }
+    default:
+      break;
+  }
+
 }
 
 - (void)moveLeftAnimated:(BOOL)animated
