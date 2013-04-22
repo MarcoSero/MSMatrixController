@@ -24,6 +24,11 @@
 #import <Foundation/Foundation.h>
 #import "UIViewController+MSMatrixController.h"
 
+typedef enum {
+  MSShiftHorizontal,
+  MSShiftVertical
+} MSDirection;
+
 @protocol MSMatrixControllerDelegate <NSObject>
 @optional
 - (void)willMoveToViewController:(UIViewController *)viewController atPosition:(Position)position;
@@ -42,7 +47,9 @@
 
 - (void)setControllers:(NSArray *)controllers;
 
-- (void)addController:(UIViewController *)controller;
+- (void)insertController:(UIViewController *)controller shift:(MSDirection)direction;
+
+- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction;
 
 - (void)moveLeftAnimated:(BOOL)animated;
 
