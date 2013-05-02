@@ -22,7 +22,6 @@
 
 #import "MSMatrixMasterViewController.h"
 #import "MSMatrixView.h"
-#import "MSPanGestureRecognizer.h"
 
 #define alphaHiddenControllers 0.0
 
@@ -92,9 +91,23 @@
   
 }
 
+- (void)removeController:(UIViewController *)controller
+{
+  UIViewController *currentVisibleViewController = _visibleViewController;
+  
+  NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+  [controllers removeObject:controller];
+  
+  [controller removeFromParentViewController];
+  [controller.view removeFromSuperview];
+  
+  [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+  
+  _visibleViewController = currentVisibleViewController;
+}
+
 - (void)removeController:(UIViewController *)controller shift:(MSDirection)direction
 {
-  
   UIViewController *rightViewController = controller.rightViewController;
   UIViewController *leftViewController = controller.leftViewController;
   UIViewController *topViewController = controller.topViewController;
@@ -236,6 +249,23 @@
     return nil;
   }
   return [viewControllersWithMatchedPosition objectAtIndex:0];
+}
+
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
+{
+  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated completion:completion];
+}
+
+- (void)moveController:(UIViewController *)controller toPosition:(Position)position
+{
+  UIViewController *currentVisibleViewController = _visibleViewController;
+ 
+  controller.row = position.row;
+  controller.col = position.col;
+  
+  [self setControllers:_viewControllers withFrame:[[UIScreen mainScreen] bounds]];
+  
+  _visibleViewController = currentVisibleViewController;
 }
 
 #pragma mark - Private methods
@@ -429,11 +459,6 @@
   [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES completion:^{
   }];
 
-}
-
-- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
-{
-  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated completion:completion];
 }
 
 - (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion

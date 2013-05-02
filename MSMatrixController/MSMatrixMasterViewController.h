@@ -23,6 +23,7 @@
 
 #import <Foundation/Foundation.h>
 #import "UIViewController+MSMatrixController.h"
+#import "MSPanGestureRecognizer.h"
 
 typedef enum {
   MSShiftHorizontal,
@@ -49,7 +50,13 @@ typedef enum {
 
 - (void)insertController:(UIViewController *)controller shift:(MSDirection)direction;
 
+- (void)removeController:(UIViewController *)controller;
+
 - (void)removeController:(UIViewController *)controller shift:(MSDirection)direction;
+
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion;
+
+- (void)moveController:(UIViewController *)controller toPosition:(Position)position;
 
 - (void)moveLeftAnimated:(BOOL)animated;
 
