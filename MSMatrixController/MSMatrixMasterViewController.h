@@ -46,13 +46,17 @@ typedef enum {
 
 - (id)initWithFrame:(CGRect)frame;
 
+- (void)resetPositions:(NSArray *)viewControllers;
+
 - (void)setControllers:(NSArray *)controllers;
+
+- (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction;
 
 - (void)insertController:(UIViewController *)controller shift:(MSDirection)direction;
 
 - (void)removeController:(UIViewController *)controller;
 
-- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction;
+- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction animated:(BOOL)animated;
 
 - (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion;
 
