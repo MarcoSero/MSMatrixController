@@ -23,7 +23,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIGestureRecognizerSubclass.h>
-#import "MSMatrixMasterViewController.h"
 
 typedef enum {
   MSPanDirectionRight,

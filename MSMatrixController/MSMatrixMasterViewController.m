@@ -22,7 +22,6 @@
 
 #import "MSMatrixMasterViewController.h"
 #import "MSMatrixView.h"
-#import "MSPanGestureRecognizer.h"
 
 #define alphaHiddenControllers 0.0
 
@@ -52,134 +51,194 @@
 
 #pragma mark - Public methods
 
-- (void)insertController:(UIViewController *)controller shift:(MSDirection)direction
+- (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction
 {
   UIViewController *currentVisibleViewController = _visibleViewController;
   
-  NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+  NSMutableArray *currentControllers = [NSMutableArray arrayWithArray:_viewControllers];
+  
+  for (UIViewController *controller in controllers) {
+    if (controller.row < 0) {
+      controller.row = 0;
+    }
     
-  if (controller.row < 0) {
-    controller.row = 0;
-  }
-  
-  if (controller.col < 0) {
-    controller.col = 0;
-  }
-  
-  switch (direction) {
-    case MSShiftHorizontal: {
-      for (UIViewController *child in controllers) {
-        if ((child.row == controller.row) && (child.col >= controller.col)) {
-          child.col += 1;
-        }
-      }
-      break;
+    if (controller.col < 0) {
+      controller.col = 0;
     }
-    default: {
-      for (UIViewController *child in controllers) {
-        if ((child.col == controller.col) && (child.row >= controller.row)) {
-          child.row += 1;
+    
+    switch (direction) {
+      case MSShiftHorizontal: {
+        for (UIViewController *child in currentControllers) {
+          if ((child.row == controller.row) && (child.col >= controller.col)) {
+            child.col += 1;
+          }
         }
+        break;
       }
-      break;
+      default: {
+        for (UIViewController *child in currentControllers) {
+          if ((child.col == controller.col) && (child.row >= controller.row)) {
+            child.row += 1;
+          }
+        }
+        break;
+      }
     }
+    
+    [currentControllers addObject:controller];
   }
   
-  [controllers addObject:controller];
-  [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
+  [self setControllers:currentControllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+ 
+  _visibleViewController = currentVisibleViewController;
+}
+
+- (void)insertController:(UIViewController *)controller shift:(MSDirection)direction
+{
+  [self insertControllers:@[controller] shift:direction];
+}
+
+- (void)resetPositions:(NSArray *)viewControllers {
   
+  UIViewController *currentVisibleViewController = _visibleViewController;
+  [self setControllers:viewControllers withFrame:[[UIScreen mainScreen] applicationFrame]];
   _visibleViewController = currentVisibleViewController;
   
 }
 
-- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction
+- (void)removeController:(UIViewController *)controller
 {
+  [self removeControllers:@[controller]];
+}
+
+- (void)removeControllers:(NSArray *)controllers {
+  UIViewController *currentVisibleViewController = _visibleViewController;
   
+  NSMutableArray *currentControllers = [NSMutableArray arrayWithArray:_viewControllers];
+  [currentControllers removeObjectsInArray:controllers];
+  
+  for (UIViewController *viewController in controllers) {
+    [viewController willMoveToParentViewController:nil];
+    [viewController.view removeFromSuperview];
+    [viewController removeFromParentViewController];
+  }
+  
+  [self setControllers:currentControllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+  
+  _visibleViewController = currentVisibleViewController;
+}
+
+- (void)removeController:(UIViewController *)controller shift:(MSDirection)direction animated:(BOOL)animated 
+{
   UIViewController *rightViewController = controller.rightViewController;
   UIViewController *leftViewController = controller.leftViewController;
   UIViewController *topViewController = controller.topViewController;
   UIViewController *bottomViewController = controller.bottomViewController;
   
-  NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
-  [controllers removeObject:controller];
-  
   switch (direction) {
     case MSShiftHorizontal: {
       
+      // No left or right view controller, just remove it
       if (!leftViewController && !rightViewController) {
-        return;
-      }
-
-      for (UIViewController *child in controllers) {
-        if ((child.row == controller.row) && (child.col >= controller.col)) {
-          child.col -= 1;
-        }
-      }
-      
-      if (rightViewController) {
-        [self moveRightAnimated:YES withCompletion:^{
-          
-          [controller removeFromParentViewController];
-          [controller.view removeFromSuperview];
-          
-          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
-          
-          CGRect newFrame = self.view.frame;
-          newFrame.origin.x += [[UIScreen mainScreen] bounds].size.width;
-          self.view.frame = newFrame;
-          
-          _visibleViewController = rightViewController;
-        }];
+        [self removeController:controller];
       } else {
-        [self moveLeftAnimated:YES withCompletion:^{
-          
-          [controller removeFromParentViewController];
+      // Adjacent view controllers exist, need to adjust their postion
+        NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+        [controllers removeObject:controller];
+        
+        for (UIViewController *child in controllers) {
+          if ((child.row == controller.row) && (child.col >= controller.col)) {
+            child.col -= 1;
+          }
+        }
+        
+        if (!animated) {
+          [controller willMoveToParentViewController:nil];
           [controller.view removeFromSuperview];
+          [controller removeFromParentViewController];
+          [self resetPositions:controllers];
+        } else {
           
-          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
-          
-          _visibleViewController = leftViewController;
-        }];
-      }
+          if (rightViewController) {
+            [self moveRightAnimated:YES withCompletion:^{
+              
+              [controller willMoveToParentViewController:nil];
+              [controller.view removeFromSuperview];
+              [controller removeFromParentViewController];
+              
+              [self setControllers:controllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+              CGRect newFrame = self.view.frame;
+              newFrame.origin.x += [[UIScreen mainScreen] applicationFrame].size.width;
+              self.view.frame = newFrame;
+              _visibleViewController = rightViewController;
+            }];
+            
+          } else {
+            [self moveLeftAnimated:YES withCompletion:^{
+              
+              [controller willMoveToParentViewController:nil];
+              [controller.view removeFromSuperview];
+              [controller removeFromParentViewController];
+              [self setControllers:controllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+              _visibleViewController = leftViewController;
+            }];
+            
+          }
+        }
+      } 
       break;
     }
     case MSShiftVertical: {
       
+      // No top or bottom view controller, just remove it
       if (!topViewController && !bottomViewController) {
-        return;
-      }
-
-      for (UIViewController *child in controllers) {
-        if ((child.col == controller.col) && (child.row >= controller.row)) {
-          child.row -= 1;
-        }
-      }
-      
-      if (bottomViewController) {
-        [self moveDownAnimated:YES withCompletion:^{
-
-          [controller removeFromParentViewController];
-          [controller.view removeFromSuperview];
-
-          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
-
-          CGRect newFrame = self.view.frame;
-          newFrame.origin.y += [[UIScreen mainScreen] bounds].size.height;
-          self.view.frame = newFrame;
-
-          _visibleViewController = bottomViewController;
-        }];
+        [self removeController:controller];
       } else {
-        [self moveUpAnimated:YES withCompletion:^{
-
-          [controller removeFromParentViewController];
+      // Adjacent view controllers exist, need to adjust their postion
+        NSMutableArray *controllers = [NSMutableArray arrayWithArray:_viewControllers];
+        [controllers removeObject:controller];
+        
+        for (UIViewController *child in controllers) {
+          if ((child.col == controller.col) && (child.row >= controller.row)) {
+            child.row -= 1;
+          }
+        }
+        
+        if (!animated) {
+          [controller willMoveToParentViewController:nil];
           [controller.view removeFromSuperview];
+          [controller removeFromParentViewController];
+          [self resetPositions:controllers];
+        } else {
+          if (bottomViewController) {
+            [self moveDownAnimated:YES withCompletion:^{
+              
+              [controller willMoveToParentViewController:nil];
+              [controller.view removeFromSuperview];
+              [controller removeFromParentViewController];
+              
+              [self setControllers:controllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+              
+              CGRect newFrame = self.view.frame;
+              newFrame.origin.y += [[UIScreen mainScreen] applicationFrame].size.height;
+              self.view.frame = newFrame;
+              
+              _visibleViewController = bottomViewController;
+            }];
+          } else {
+            [self moveUpAnimated:YES withCompletion:^{
+              
+              [controller willMoveToParentViewController:nil];
+              [controller.view removeFromSuperview];
+              [controller removeFromParentViewController];
+              [self setControllers:controllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+              _visibleViewController = topViewController;
+              
+            }];
+          }
+        }
 
-          [self setControllers:controllers withFrame:[[UIScreen mainScreen] bounds]];
-
-          _visibleViewController = topViewController;
-        }];
-      }
+      } 
       break;
     }
     default:
@@ -236,6 +295,23 @@
     return nil;
   }
   return [viewControllersWithMatchedPosition objectAtIndex:0];
+}
+
+- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
+{
+  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated completion:completion];
+}
+
+- (void)moveController:(UIViewController *)controller toPosition:(Position)position
+{
+  UIViewController *currentVisibleViewController = _visibleViewController;
+ 
+  controller.row = position.row;
+  controller.col = position.col;
+  
+  [self setControllers:_viewControllers withFrame:[[UIScreen mainScreen] applicationFrame]];
+  
+  _visibleViewController = currentVisibleViewController;
 }
 
 #pragma mark - Private methods
@@ -429,11 +505,6 @@
   [self goToViewController:_visibleViewController translation:translation velocity:CGPointZero way:MSPanWayNone animated:YES completion:^{
   }];
 
-}
-
-- (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
-{
-  [self goToViewController:controller translation:CGPointZero velocity:CGPointZero way:way animated:animated completion:completion];
 }
 
 - (void)goToViewController:(UIViewController *)newController translation:(CGPoint)translation velocity:(CGPoint)velocity way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion
