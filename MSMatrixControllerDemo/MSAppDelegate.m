@@ -61,6 +61,7 @@
   NSArray *controllers = @[position00ViewController, position01ViewController, position02ViewController, position11ViewController, position12ViewController,
     position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
   [matrixMasterViewController setControllers:controllers];
+  matrixMasterViewController.alphaHiddenControllers = 0.0;
 
   self.window.rootViewController = matrixMasterViewController;
   [self.window makeKeyAndVisible];
