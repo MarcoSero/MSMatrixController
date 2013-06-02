@@ -551,7 +551,11 @@
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;
     frameForVisibleViewController.origin.x = -newController.view.frame.origin.x;
-    frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
+    if (!self.parentViewController) {
+      frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
+    } else {
+      frameForVisibleViewController.origin.y = -newController.view.frame.origin.y;
+    }
     self.view.frame = frameForVisibleViewController;
 
     if (_visibleViewController != newController) {
