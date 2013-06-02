@@ -94,7 +94,7 @@
 
 - (IBAction)removeTapped:(id)sender
 {
-  [self.matrixViewController removeController:self shift:MSShiftHorizontal];
+  [self.matrixViewController removeController:self shift:MSShiftHorizontal animated:YES];
 }
 
 - (void)updateDisplay

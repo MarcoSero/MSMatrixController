@@ -29,7 +29,6 @@
 		A9F3903917075F4300C709D0 /* Arrow-Right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F3903117075F4300C709D0 /* Arrow-Right@2x.png */; };
 		A9F3903A17075F4300C709D0 /* Arrow-Up.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F3903217075F4300C709D0 /* Arrow-Up.png */; };
 		A9F3903B17075F4300C709D0 /* Arrow-Up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F3903317075F4300C709D0 /* Arrow-Up@2x.png */; };
-		A9FD76F0170716470005AB67 /* MSMatrixControllerDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A97A5FD9170600640009A57F /* MSMatrixControllerDemo-Info.plist */; };
 		A9FD76F51707394B0005AB67 /* MSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FD76F41707394B0005AB67 /* MSDemoViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -228,7 +227,6 @@
 				A97A5FE0170600640009A57F /* Default@2x.png in Resources */,
 				A97A5FE2170600640009A57F /* Default-568h@2x.png in Resources */,
 				A97A5FE917060B7B0009A57F /* iPhone.storyboard in Resources */,
-				A9FD76F0170716470005AB67 /* MSMatrixControllerDemo-Info.plist in Resources */,
 				A9F3903417075F4300C709D0 /* Arrow-Down.png in Resources */,
 				A9F3903517075F4300C709D0 /* Arrow-Down@2x.png in Resources */,
 				A9F3903617075F4300C709D0 /* Arrow-Left.png in Resources */,
