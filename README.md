@@ -38,9 +38,10 @@ Organize your view controllers inside a Matrix, specifying for each of them its 
       UIViewController *position11ViewController = . . . . 
 
       NSArray *controllers = @[position00ViewController, position01ViewController, position11ViewController, position12ViewController,
-    position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
+      position21ViewController, position22ViewController, position23ViewController, position24ViewController, position14ViewController];
     
       [matrixMasterViewController setControllers:controllers];
+      matrixMasterViewController.alphaHiddenControllers = 0.0;
 
       self.window.rootViewController = matrixMasterViewController;
       [self.window makeKeyAndVisible];
@@ -70,6 +71,20 @@ The default way to navigate the matrix of controllers is with swipe gestures, bu
     - (void)moveRightAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
     - (void)moveUpAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
     - (void)moveDownAnimated:(BOOL)animated withCompletion:(void (^)(void))completion;
+    - (void)goToViewController:(UIViewController *)controller way:(MSPanWay)way animated:(BOOL)animated completion:(void (^)(void))completion;
+    
+The alpha value of hidden views can be set via the public property:
+
+    alphaHiddenControllers
+    
+Controllers can be programmatically removed, added, or moved to new positions in the matrix on the fly:
+
+    - (void)removeController:(UIViewController *)controller;
+    - (void)removeController:(UIViewController *)controller shift:(MSDirection)direction animated:(BOOL)animated;
+    - (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction;
+    - (void)insertController:(UIViewController *)controller shift:(MSDirection)direction;
+    - (void)moveController:(UIViewController *)controller toPosition:(Position)position;
+    - (void)resetPositions:(NSArray *)viewControllers;
  
 ## Callbacks and MSMatrixControllerDelegate
 

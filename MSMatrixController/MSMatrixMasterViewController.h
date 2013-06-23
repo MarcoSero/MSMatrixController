@@ -43,12 +43,15 @@ typedef enum {
 @property(strong, readonly, nonatomic) NSArray *viewControllers;
 @property(assign, readonly, nonatomic) NSInteger maxRow;
 @property(assign, readonly, nonatomic) NSInteger maxCol;
+@property(nonatomic) CGFloat alphaHiddenControllers;
 
 - (id)initWithFrame:(CGRect)frame;
 
 - (void)resetPositions:(NSArray *)viewControllers;
 
 - (void)setControllers:(NSArray *)controllers;
+
+- (void)setVisibleController:(UIViewController *)controller;
 
 - (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction;
 

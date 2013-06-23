@@ -23,7 +23,7 @@
 #import "MSMatrixMasterViewController.h"
 #import "MSMatrixView.h"
 
-#define alphaHiddenControllers 0.0
+#define defaultAlphaHiddenControllers 0.0
 
 @interface MSMatrixMasterViewController ()
 @property(strong, nonatomic) MSPanGestureRecognizer *panGestureRecognizer;
@@ -50,6 +50,11 @@
 }
 
 #pragma mark - Public methods
+
+- (void)setVisibleController:(UIViewController *)controller
+{
+  _visibleViewController = controller;
+}
 
 - (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction
 {
@@ -316,6 +321,15 @@
 
 #pragma mark - Private methods
 
+- (CGFloat)alphaHiddenControllers
+{
+  if (!_alphaHiddenControllers) {
+    _alphaHiddenControllers = defaultAlphaHiddenControllers;
+  }
+  
+  return _alphaHiddenControllers;
+}
+
 - (void)setControllers:(NSArray *)controllers withFrame:(CGRect)frame
 {
   _viewControllers = controllers;
@@ -441,9 +455,9 @@
   }
 
   float alphaValue = movedPoints / totalPoints;
-  _visibleViewController.view.alpha = alphaHiddenControllers + fabsf(1 - alphaValue);
+  _visibleViewController.view.alpha = self.alphaHiddenControllers + fabsf(1 - alphaValue);
   for (UIViewController *destination in _destinationControllersInWay) {
-    destination.view.alpha = alphaHiddenControllers + alphaValue;
+    destination.view.alpha = self.alphaHiddenControllers + alphaValue;
   }
 }
 
@@ -542,11 +556,15 @@
   [UIView animateWithDuration:velocityAnimation animations:^{
     CGRect frameForVisibleViewController = self.view.frame;
     frameForVisibleViewController.origin.x = -newController.view.frame.origin.x;
-    frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
+    if (!self.parentViewController) {
+      frameForVisibleViewController.origin.y = -newController.view.frame.origin.y + 20;
+    } else {
+      frameForVisibleViewController.origin.y = -newController.view.frame.origin.y;
+    }
     self.view.frame = frameForVisibleViewController;
 
     if (_visibleViewController != newController) {
-      _visibleViewController.view.alpha = alphaHiddenControllers;
+      _visibleViewController.view.alpha = self.alphaHiddenControllers;
       newController.view.alpha = 1.0;
     }
     else {
