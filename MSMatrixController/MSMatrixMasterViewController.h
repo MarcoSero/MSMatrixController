@@ -51,6 +51,8 @@ typedef enum {
 
 - (void)setControllers:(NSArray *)controllers;
 
+- (void)setVisibleController:(UIViewController *)controller;
+
 - (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction;
 
 - (void)insertController:(UIViewController *)controller shift:(MSDirection)direction;

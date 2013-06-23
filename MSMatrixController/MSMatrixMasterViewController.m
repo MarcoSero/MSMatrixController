@@ -51,6 +51,11 @@
 
 #pragma mark - Public methods
 
+- (void)setVisibleController:(UIViewController *)controller
+{
+  _visibleViewController = controller;
+}
+
 - (void)insertControllers:(NSArray *)controllers shift:(MSDirection)direction
 {
   UIViewController *currentVisibleViewController = _visibleViewController;
